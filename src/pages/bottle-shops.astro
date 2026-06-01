@@ -22,7 +22,6 @@ const total = bottleshops.length;
       <option value="">All States</option>
       {states.map(s => <option value={s}>{s}</option>)}
     </select>
-    <select id="suburb-filter"><option value="">All Suburbs</option></select>
     <select id="sort-filter">
       <option value="rating">Top Rated</option>
       <option value="name">A–Z</option>
@@ -112,7 +111,9 @@ const total = bottleshops.length;
     filtered = bottleshopsData.filter(g => {
       const matchSearch = !search || g.name.toLowerCase().includes(search) || g.suburb.toLowerCase().includes(search) || (g.address || '').toLowerCase().includes(search);
       const matchState = !state || g.state === state;
-      return matchSearch && matchState;
+      const matchSuburb = !suburb || g.suburb === suburb;
+      const matchSuburb = !suburb || g.suburb === suburb;
+      return matchSearch && matchState && matchSuburb;
     });
 
     if (sort === 'rating') filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
@@ -124,7 +125,8 @@ const total = bottleshops.length;
   }
 
   document.getElementById('search-input')?.addEventListener('input', applyFilters);
-  document.getElementById('state-filter')?.addEventListener('change', applyFilters);
+  document.getElementById('state-filter')?.addEventListener('change', () => { updateSuburbFilter(); applyFilters(); });
+  document.getElementById('suburb-filter')?.addEventListener('change', applyFilters);
   document.getElementById('sort-filter')?.addEventListener('change', applyFilters);
   document.getElementById('load-more')?.addEventListener('click', () => {
     shown += 48;
@@ -132,6 +134,25 @@ const total = bottleshops.length;
   });
 
   // Copy gyms data to public for client-side access
+  
+  function updateSuburbFilter() {
+    const state = document.getElementById('state-filter')?.value || '';
+    const suburb = document.getElementById('suburb-filter')?.value || '';
+    const suburbEl = document.getElementById('suburb-filter');
+    if (!suburbEl) return;
+    const suburbs = [...new Set(allData.filter(g => !state || g.state === state).map(g => g.suburb).filter(Boolean))].sort();
+    suburbEl.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s => '<option value="' + s + '">' + s + '</option>').join('');
+  }
+
+  
+  function updateSuburbFilter() {
+    const state = document.getElementById('state-filter')?.value || '';
+    const suburbEl = document.getElementById('suburb-filter');
+    if (!suburbEl) return;
+    const suburbs = [...new Set(allData.filter(g => !state || g.state === state).map(g => g.suburb).filter(Boolean))].sort();
+    suburbEl.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s => '<option value="' + s + '">' + s + '</option>').join('');
+  }
+
   window.addEventListener('load', async () => {
     const res = await fetch('/bottle-shops-data.json').catch(() => null);
     if (res?.ok) {

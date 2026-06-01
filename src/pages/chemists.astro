@@ -99,8 +99,10 @@ const total = chemists.length;
 
     filtered = allData.filter(g => {
       const matchSearch = !search || g.name.toLowerCase().includes(search) || g.suburb.toLowerCase().includes(search) || (g.address || '').toLowerCase().includes(search);
+      const suburb = document.getElementById('suburb-filter')?.value || '';
       const matchState = !state || g.state === state;
-      return matchSearch && matchState;
+      const matchSuburb = !suburb || g.suburb === suburb;
+      return matchSearch && matchState && matchSuburb;
     });
 
     if (sort === 'rating') filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
@@ -112,7 +114,16 @@ const total = chemists.length;
   }
 
   document.getElementById('search-input')?.addEventListener('input', applyFilters);
-  document.getElementById('state-filter')?.addEventListener('change', applyFilters);
+  document.getElementById('state-filter')?.addEventListener('change', () => {
+    const state = document.getElementById('state-filter')?.value || '';
+    const suburbEl = document.getElementById('suburb-filter');
+    if (suburbEl) {
+      const suburbs = [...new Set(allData.filter(g => !state || g.state === state).map(g => g.suburb).filter(Boolean))].sort();
+      suburbEl.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s => '<option value="' + s + '">' + s + '</option>').join('');
+    }
+    applyFilters();
+  });
+  document.getElementById('suburb-filter')?.addEventListener('change', applyFilters);
   document.getElementById('sort-filter')?.addEventListener('change', applyFilters);
   document.getElementById('load-more')?.addEventListener('click', () => { shown += 48; renderCards(); });
 
@@ -121,6 +132,11 @@ const total = chemists.length;
       const res = await fetch('/chemists-data.json');
       allData = await res.json();
       filtered = [...allData];
+      const suburbEl = document.getElementById('suburb-filter');
+      if (suburbEl) {
+        const suburbs = [...new Set(allData.map(g => g.suburb).filter(Boolean))].sort();
+        suburbEl.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s => '<option value="' + s + '">' + s + '</option>').join('');
+      }
       applyFilters();
     } catch(e) {
       console.error('Failed to load data', e);
