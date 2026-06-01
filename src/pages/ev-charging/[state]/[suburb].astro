@@ -5,9 +5,9 @@ import evchargingData from '../../../data/ev-charging.json';
 export function getStaticPaths() {
   const grouped: Record<string, Record<string, any[]>> = {};
   
-  for (const evcharging of evchargingData) {
-    const state = (gym.state as string).toLowerCase();
-    const suburb = (gym.suburb as string).toLowerCase()
+  for (const item of evchargingData) {
+    const state = (item.state as string).toLowerCase();
+    const suburb = (item.suburb as string).toLowerCase()
   .replace(/\s+/g, '-')
   .replace(/-cbd$/, '')
   .replace(/-city$/, '')
@@ -15,7 +15,7 @@ export function getStaticPaths() {
   .replace(/-centre$/, '');
     if (!grouped[state]) grouped[state] = {};
     if (!grouped[state][suburb]) grouped[state][suburb] = [];
-    grouped[state][suburb].push(gym);
+    grouped[state][suburb].push(item);
   }
 
   const paths: any[] = [];

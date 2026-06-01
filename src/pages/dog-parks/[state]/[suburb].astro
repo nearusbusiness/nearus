@@ -5,9 +5,9 @@ import dogparksData from '../../../data/dog-parks.json';
 export function getStaticPaths() {
   const grouped: Record<string, Record<string, any[]>> = {};
   
-  for (const dogparks of dogparksData) {
-    const state = (gym.state as string).toLowerCase();
-    const suburb = (gym.suburb as string).toLowerCase()
+  for (const item of dogparksData) {
+    const state = (item.state as string).toLowerCase();
+    const suburb = (item.suburb as string).toLowerCase()
   .replace(/\s+/g, '-')
   .replace(/-cbd$/, '')
   .replace(/-city$/, '')
@@ -15,7 +15,7 @@ export function getStaticPaths() {
   .replace(/-centre$/, '');
     if (!grouped[state]) grouped[state] = {};
     if (!grouped[state][suburb]) grouped[state][suburb] = [];
-    grouped[state][suburb].push(gym);
+    grouped[state][suburb].push(item);
   }
 
   const paths: any[] = [];
