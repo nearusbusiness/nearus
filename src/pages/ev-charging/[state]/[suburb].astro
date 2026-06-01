@@ -34,7 +34,7 @@ export function getStaticPaths() {
   return paths;
 }
 
-const { gyms, state, suburb } = Astro.props;
+const { evcharging, state, suburb } = Astro.props;
 const stateNames: Record<string, string> = {
   NSW: 'New South Wales', VIC: 'Victoria', QLD: 'Queensland',
   WA: 'Western Australia', SA: 'South Australia', TAS: 'Tasmania',
