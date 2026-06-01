@@ -1,0 +1,110 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import banksData from '../../data/banks.json';
+
+export function getStaticPaths() {
+  const states = [...new Set(banksData.map((g: any) => g.state))];
+  return states.map(state => ({
+    params: { state: (state as string).toLowerCase() },
+    props: { state }
+  }));
+}
+
+const { state } = Astro.props;
+const banks = banksData.filter((g: any) => g.state === state);
+const stateNames: Record<string, string> = {
+  NSW: 'New South Wales', VIC: 'Victoria', QLD: 'Queensland',
+  WA: 'Western Australia', SA: 'South Australia', TAS: 'Tasmania',
+  ACT: 'Australian Capital Territory', NT: 'Northern Territory'
+};
+const stateName = stateNames[state] || state;
+---
+
+<Layout title={`Banks Near Me in ${stateName}`} description={`Find ${banks.length} banks and ATMs in ${stateName}. Search by suburb.`}>
+
+  <div class="dir-page-hero">
+    <div class="container">
+      <p style="color:#40916C; font-size:0.85rem; margin-bottom:0.5rem;">
+        <a href="/banks" style="color:#40916C;">← All Banks</a>
+      </p>
+      <h1>🏋️ Banks Near Me in {stateName}</h1>
+      <p>{banks.length.toLocaleString()} banks and ATMs across {stateName}</p>
+    </div>
+  </div>
+
+  <div class="dir-search">
+    <input type="text" id="search-input" placeholder="Search by name or suburb..." />
+    <select id="sort-filter">
+      <option value="rating">Top Rated</option>
+      <option value="name">A–Z</option>
+      <option value="reviews">Most Reviews</option>
+    </select>
+  </div>
+
+  <div class="results-count" id="results-count">
+    Showing {Math.min(48, banks.length)} of {banks.length.toLocaleString()} gyms
+  </div>
+
+  <div class="results-grid" id="results-grid">
+    {banks.slice(0, 48).map((gym: any) => (
+      <a href={item.maps_url} target="_blank" rel="noopener" class="result-card" data-name={item.name.toLowerCase()} data-suburb={item.suburb.toLowerCase()} data-rating={item.rating || 0} data-reviews={item.total_ratings || 0}>
+        <div class="result-card-name">{item.name}</div>
+        <div class="result-card-loc">📍 {item.address}</div>
+        {item.rating && <div class="result-card-rating">⭐ {item.rating} ({item.total_ratings?.toLocaleString()} reviews)</div>}
+        <span class="result-card-state">{gym.suburb}</span>
+      </a>
+    ))}
+  </div>
+
+  <div style="text-align:center; padding: 2rem;">
+    <button class="load-more-btn" id="load-more">Load More</button>
+  </div>
+
+  <div class="ad-slot" style="max-width:1100px; margin: 0 auto 2rem;">Google AdSense</div>
+
+</Layout>
+
+<style>
+  .result-card-rating { font-size: 0.78rem; color: var(--mid); }
+  .load-more-btn {
+    background: var(--green); color: white; border: none;
+    padding: 0.75rem 2rem; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    font-weight: 600; cursor: pointer; transition: background 0.2s;
+  }
+  .load-more-btn:hover { background: var(--green-light); }
+</style>
+
+<script>
+  const cards = Array.from(document.querySelectorAll('.result-card')).map(el => ({
+    name: el.getAttribute('data-name') || '',
+    suburb: el.getAttribute('data-suburb') || '',
+    rating: parseFloat(el.getAttribute('data-rating') || '0'),
+    reviews: parseInt(el.getAttribute('data-reviews') || '0'),
+    html: el.outerHTML
+  }));
+
+  let shown = 48;
+
+  function applyFilters() {
+    const search = (document.getElementById('search-input') as HTMLInputElement).value.toLowerCase();
+    const sort = (document.getElementById('sort-filter') as HTMLSelectElement).value;
+
+    let filtered = cards.filter(g =>
+      !search || g.name.includes(search) || g.suburb.includes(search)
+    );
+
+    if (sort === 'rating') filtered.sort((a, b) => b.rating - a.rating);
+    if (sort === 'name') filtered.sort((a, b) => a.name.localeCompare(b.name));
+    if (sort === 'reviews') filtered.sort((a, b) => b.reviews - a.reviews);
+
+    const grid = document.getElementById('results-grid');
+    const count = document.getElementById('results-count');
+    if (grid) grid.innerHTML = filtered.slice(0, shown).map(g => g.html).join('');
+    if (count) count.textContent = `Showing ${Math.min(shown, filtered.length).toLocaleString()} of ${filtered.length.toLocaleString()} gyms`;
+  }
+
+  document.getElementById('search-input')?.addEventListener('input', applyFilters);
+  document.getElementById('sort-filter')?.addEventListener('change', applyFilters);
+  document.getElementById('load-more')?.addEventListener('click', () => { shown += 48; applyFilters(); });
+</script>
