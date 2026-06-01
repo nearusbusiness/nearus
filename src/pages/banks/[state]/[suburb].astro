@@ -61,7 +61,7 @@ const stateName = stateNames[state] || state;
   </div>
 
   <div class="results-grid" style="padding-top: 2rem;">
-    {banks.map((gym: any) => (
+    {banks.map((item: any) => (
       <a href={item.maps_url} target="_blank" rel="noopener" class="result-card">
         <div class="result-card-name">{item.name}</div>
         <div class="result-card-loc">📍 {item.address}</div>
