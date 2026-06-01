@@ -20,6 +20,16 @@ import medicalData from '../data/medical-centres.json';
 import dentistsData from '../data/dentists.json';
 import vetsData from '../data/vets.json';
 import childcareData from '../data/childcare.json';
+import supermarketsData from '../data/supermarkets.json';
+import hardwareData from '../data/hardware-stores.json';
+import postOfficesData from '../data/post-offices.json';
+import banksData from '../data/banks.json';
+import petshopsData from '../data/petshops.json';
+import bakeriesData from '../data/bakeries.json';
+import hairdressersData from '../data/hairdressers.json';
+import carWashesData from '../data/car-washes.json';
+import mechanicsData from '../data/mechanics.json';
+import bottleShopsData from '../data/bottle-shops.json';
 
 const gymCount = gymsData.length;
 const campingCount = campingData.length;
@@ -41,8 +51,18 @@ const medicalCount = medicalData.length;
 const dentistsCount = dentistsData.length;
 const vetsCount = vetsData.length;
 const childcareCount = childcareData.length;
+const supermarketsCount = supermarketsData.length;
+const hardwareCount = hardwareData.length;
+const postOfficesCount = postOfficesData.length;
+const banksCount = banksData.length;
+const petshopsCount = petshopsData.length;
+const bakeriesCount = bakeriesData.length;
+const hairdressersCount = hairdressersData.length;
+const carWashesCount = carWashesData.length;
+const mechanicsCount = mechanicsData.length;
+const bottleShopsCount = bottleShopsData.length;
 
-const totalCount = gymCount + campingCount + dogParksCount + marketsCount + poolsCount + skateParksCount + playgroundsCount + tennisCount + evCount + librariesCount + restaurantsCount + cafesCount + chemistsCount + petrolCount + parksCount + beachesCount + medicalCount + dentistsCount + vetsCount + childcareCount;
+const totalCount = gymCount + campingCount + dogParksCount + marketsCount + poolsCount + skateParksCount + playgroundsCount + tennisCount + evCount + librariesCount + restaurantsCount + cafesCount + chemistsCount + petrolCount + parksCount + beachesCount + medicalCount + dentistsCount + vetsCount + childcareCount + supermarketsCount + hardwareCount + postOfficesCount + banksCount + petshopsCount + bakeriesCount + hairdressersCount + carWashesCount + mechanicsCount + bottleShopsCount;
 
 const states = ['NSW','VIC','QLD','WA','SA','TAS','ACT','NT'];
 
@@ -67,15 +87,25 @@ const stateCounts = {
   dentists: Object.fromEntries(states.map(s => [s, (dentistsData as any[]).filter(g => g.state === s).length])),
   vets: Object.fromEntries(states.map(s => [s, (vetsData as any[]).filter(g => g.state === s).length])),
   childcare: Object.fromEntries(states.map(s => [s, (childcareData as any[]).filter(g => g.state === s).length])),
+  supermarkets: Object.fromEntries(states.map(s => [s, (supermarketsData as any[]).filter(g => g.state === s).length])),
+  hardware: Object.fromEntries(states.map(s => [s, (hardwareData as any[]).filter(g => g.state === s).length])),
+  postOffices: Object.fromEntries(states.map(s => [s, (postOfficesData as any[]).filter(g => g.state === s).length])),
+  banks: Object.fromEntries(states.map(s => [s, (banksData as any[]).filter(g => g.state === s).length])),
+  petshops: Object.fromEntries(states.map(s => [s, (petshopsData as any[]).filter(g => g.state === s).length])),
+  bakeries: Object.fromEntries(states.map(s => [s, (bakeriesData as any[]).filter(g => g.state === s).length])),
+  hairdressers: Object.fromEntries(states.map(s => [s, (hairdressersData as any[]).filter(g => g.state === s).length])),
+  carWashes: Object.fromEntries(states.map(s => [s, (carWashesData as any[]).filter(g => g.state === s).length])),
+  mechanics: Object.fromEntries(states.map(s => [s, (mechanicsData as any[]).filter(g => g.state === s).length])),
+  bottleShops: Object.fromEntries(states.map(s => [s, (bottleShopsData as any[]).filter(g => g.state === s).length])),
 }
 ---
 
-<Layout title="Australia's Local Directory" description="Find gyms, free camping, dog parks, restaurants, beaches and more across every state in Australia.">
+<Layout title="Australia's Local Directory" description="Every local directory you need — every suburb, every state, all in one place.">
 
   <section class="hero">
     <div class="hero-eyebrow">🇦🇺 Australia's Local Directory</div>
     <h1>Find anything,<br><em>near you</em> in Australia</h1>
-    <p class="hero-sub">Every local directory you need - every suburb, every state, all in one place.</p>
+    <p class="hero-sub">Every local directory you need — every suburb, every state, all in one place.</p>
 
     <div class="search-wrap">
       <input type="text" id="hero-search" placeholder="Search directories..." />
@@ -88,7 +118,7 @@ const stateCounts = {
         <div class="hero-stat-label">Listings</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-num">20</div>
+        <div class="hero-stat-num">30</div>
         <div class="hero-stat-label">Directories</div>
       </div>
       <div class="hero-stat">
@@ -133,17 +163,17 @@ const stateCounts = {
         <a href="/camping" class="dir-card" data-keywords="camping campsite caravan free outdoor nature">
           <div class="dir-card-icon">⛺</div>
           <div class="dir-card-name">Free Camping</div>
-          <div class="dir-card-desc">Free and low-cost campsites on public land across Australia by state and region.</div>
+          <div class="dir-card-desc">Free and low-cost campsites on public land across Australia.</div>
           <div class="dir-card-meta">
             <span class="dir-card-count" id="camping-count">{campingCount.toLocaleString()} listings</span>
             <span class="dir-card-arrow">→</span>
           </div>
         </a>
 
-        <a href="/dog-parks" class="dir-card" data-keywords="dog park off leash pet animal walk">
+        <a href="/dog-parks" class="dir-card" data-keywords="dog park off leash pet animal walk beach">
           <div class="dir-card-icon">🐕</div>
           <div class="dir-card-name">Off-Leash Dog Parks</div>
-          <div class="dir-card-desc">Off-leash areas, dog beaches, and fenced dog parks by suburb and city.</div>
+          <div class="dir-card-desc">Off-leash areas, dog beaches, and fenced dog parks by suburb.</div>
           <div class="dir-card-meta">
             <span class="dir-card-count" id="dogparks-count">{dogParksCount.toLocaleString()} listings</span>
             <span class="dir-card-arrow">→</span>
@@ -320,6 +350,106 @@ const stateCounts = {
           </div>
         </a>
 
+        <a href="/supermarkets" class="dir-card" data-keywords="supermarket grocery woolworths coles aldi food shopping">
+          <div class="dir-card-icon">🛍️</div>
+          <div class="dir-card-name">Supermarkets</div>
+          <div class="dir-card-desc">Find supermarkets and grocery stores near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="supermarkets-count">{supermarketsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/hardware-stores" class="dir-card" data-keywords="hardware bunnings tools trade building supplies">
+          <div class="dir-card-icon">🔨</div>
+          <div class="dir-card-name">Hardware Stores</div>
+          <div class="dir-card-desc">Find hardware stores and trade suppliers near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="hardware-count">{hardwareCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/post-offices" class="dir-card" data-keywords="post office australia post mail parcel shipping">
+          <div class="dir-card-icon">📮</div>
+          <div class="dir-card-name">Post Offices</div>
+          <div class="dir-card-desc">Find post offices and Australia Post locations near you.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="postoffices-count">{postOfficesCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/banks" class="dir-card" data-keywords="bank ATM credit union finance money branch">
+          <div class="dir-card-icon">🏦</div>
+          <div class="dir-card-name">Banks</div>
+          <div class="dir-card-desc">Find banks and ATMs near you across every state in Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="banks-count">{banksCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/petshops" class="dir-card" data-keywords="pet shop store animals dog cat fish bird supplies">
+          <div class="dir-card-icon">🐠</div>
+          <div class="dir-card-name">Pet Shops</div>
+          <div class="dir-card-desc">Find pet shops and pet supply stores near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="petshops-count">{petshopsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/bakeries" class="dir-card" data-keywords="bakery bread pastry cake sourdough fresh baked">
+          <div class="dir-card-icon">🍞</div>
+          <div class="dir-card-name">Bakeries</div>
+          <div class="dir-card-desc">Find bakeries and bread shops near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="bakeries-count">{bakeriesCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/hairdressers" class="dir-card" data-keywords="hairdresser hair salon barber cut colour style">
+          <div class="dir-card-icon">✂️</div>
+          <div class="dir-card-name">Hairdressers</div>
+          <div class="dir-card-desc">Find hairdressers and hair salons near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="hairdressers-count">{hairdressersCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/car-washes" class="dir-card" data-keywords="car wash clean detail auto vehicle polish">
+          <div class="dir-card-icon">🚗</div>
+          <div class="dir-card-name">Car Washes</div>
+          <div class="dir-card-desc">Find car washes and detailing services near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="carwashes-count">{carWashesCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/mechanics" class="dir-card" data-keywords="mechanic auto repair car service tyres brake engine">
+          <div class="dir-card-icon">🔧</div>
+          <div class="dir-card-name">Mechanics</div>
+          <div class="dir-card-desc">Find mechanics and auto repair shops near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="mechanics-count">{mechanicsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/bottle-shops" class="dir-card" data-keywords="bottle shop liquor BWS Dan Murphys alcohol beer wine">
+          <div class="dir-card-icon">🍺</div>
+          <div class="dir-card-name">Bottle Shops</div>
+          <div class="dir-card-desc">Find bottle shops and liquor stores near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="bottleshops-count">{bottleShopsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
       </div>
     </section>
 
@@ -360,31 +490,31 @@ const stateCounts = {
           <span class="listing-badge">Dog Park</span>
         </a>
 
-        <a href="/gyms/nsw/sydney-cbd" class="listing-card" data-state="NSW">
-          <div class="listing-icon">🏋️</div>
+        <a href="/restaurants/nsw/sydney-cbd" class="listing-card" data-state="NSW">
+          <div class="listing-icon">🍽️</div>
           <div class="listing-info">
-            <div class="listing-name">Surry Hills Fitness Club</div>
+            <div class="listing-name">Surry Hills Dining</div>
             <div class="listing-loc">📍 Surry Hills, NSW</div>
           </div>
-          <span class="listing-badge">Gym</span>
+          <span class="listing-badge">Restaurant</span>
         </a>
 
-        <a href="/camping/vic/melbourne-cbd" class="listing-card" data-state="VIC">
-          <div class="listing-icon">⛺</div>
+        <a href="/beaches/vic/melbourne-cbd" class="listing-card" data-state="VIC">
+          <div class="listing-icon">🏖️</div>
           <div class="listing-info">
-            <div class="listing-name">Yarra Valley Campsite</div>
-            <div class="listing-loc">📍 Yarra Valley, VIC</div>
+            <div class="listing-name">St Kilda Beach</div>
+            <div class="listing-loc">📍 St Kilda, VIC</div>
           </div>
-          <span class="listing-badge">Free Camp</span>
+          <span class="listing-badge">Beach</span>
         </a>
 
-        <a href="/dog-parks/qld/brisbane-cbd" class="listing-card" data-state="QLD">
-          <div class="listing-icon">🐕</div>
+        <a href="/cafes/qld/brisbane-cbd" class="listing-card" data-state="QLD">
+          <div class="listing-icon">☕</div>
           <div class="listing-info">
-            <div class="listing-name">Sandgate Dog Beach</div>
-            <div class="listing-loc">📍 Sandgate, QLD</div>
+            <div class="listing-name">Fortitude Valley Cafe</div>
+            <div class="listing-loc">📍 Fortitude Valley, QLD</div>
           </div>
-          <span class="listing-badge">Dog Park</span>
+          <span class="listing-badge">Cafe</span>
         </a>
 
       </div>
@@ -395,7 +525,7 @@ const stateCounts = {
 
 </Layout>
 
-<script define:vars={{ stateCounts, gymCount, campingCount, dogParksCount, marketsCount, poolsCount, skateParksCount, playgroundsCount, tennisCount, evCount, librariesCount, restaurantsCount, cafesCount, chemistsCount, petrolCount, parksCount, beachesCount, medicalCount, dentistsCount, vetsCount, childcareCount, totalCount }}>
+<script define:vars={{ stateCounts, gymCount, campingCount, dogParksCount, marketsCount, poolsCount, skateParksCount, playgroundsCount, tennisCount, evCount, librariesCount, restaurantsCount, cafesCount, chemistsCount, petrolCount, parksCount, beachesCount, medicalCount, dentistsCount, vetsCount, childcareCount, supermarketsCount, hardwareCount, postOfficesCount, banksCount, petshopsCount, bakeriesCount, hairdressersCount, carWashesCount, mechanicsCount, bottleShopsCount, totalCount }}>
 
   const allCounts = {
     gyms: gymCount, camping: campingCount, dogParks: dogParksCount,
@@ -404,7 +534,10 @@ const stateCounts = {
     libraries: librariesCount, restaurants: restaurantsCount, cafes: cafesCount,
     chemists: chemistsCount, petrol: petrolCount, parks: parksCount,
     beaches: beachesCount, medical: medicalCount, dentists: dentistsCount,
-    vets: vetsCount, childcare: childcareCount
+    vets: vetsCount, childcare: childcareCount, supermarkets: supermarketsCount,
+    hardware: hardwareCount, postOffices: postOfficesCount, banks: banksCount,
+    petshops: petshopsCount, bakeries: bakeriesCount, hairdressers: hairdressersCount,
+    carWashes: carWashesCount, mechanics: mechanicsCount, bottleShops: bottleShopsCount
   };
 
   const countIds = [
@@ -414,7 +547,10 @@ const stateCounts = {
     ['libraries-count', 'libraries'], ['restaurants-count', 'restaurants'], ['cafes-count', 'cafes'],
     ['chemists-count', 'chemists'], ['petrol-count', 'petrol'], ['parks-count', 'parks'],
     ['beaches-count', 'beaches'], ['medical-count', 'medical'], ['dentists-count', 'dentists'],
-    ['vets-count', 'vets'], ['childcare-count', 'childcare']
+    ['vets-count', 'vets'], ['childcare-count', 'childcare'], ['supermarkets-count', 'supermarkets'],
+    ['hardware-count', 'hardware'], ['postoffices-count', 'postOffices'], ['banks-count', 'banks'],
+    ['petshops-count', 'petshops'], ['bakeries-count', 'bakeries'], ['hairdressers-count', 'hairdressers'],
+    ['carwashes-count', 'carWashes'], ['mechanics-count', 'mechanics'], ['bottleshops-count', 'bottleShops']
   ];
 
   function filterState(state, el) {
@@ -449,14 +585,11 @@ const stateCounts = {
   document.getElementById('hero-search')?.addEventListener('input', (e) => {
     const q = e.target.value.toLowerCase().trim();
     const cards = document.querySelectorAll('.dir-card');
-    let visibleCount = 0;
     cards.forEach(card => {
       const name = card.querySelector('.dir-card-name')?.textContent?.toLowerCase() || '';
       const desc = card.querySelector('.dir-card-desc')?.textContent?.toLowerCase() || '';
       const keywords = card.getAttribute('data-keywords')?.toLowerCase() || '';
-      const show = !q || name.includes(q) || desc.includes(q) || keywords.includes(q);
-      card.style.display = show ? 'flex' : 'none';
-      if (show) visibleCount++;
+      card.style.display = (!q || name.includes(q) || desc.includes(q) || keywords.includes(q)) ? 'flex' : 'none';
     });
   });
 
