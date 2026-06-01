@@ -6,7 +6,7 @@ const states = ['NSW', 'VIC', 'QLD', 'WA', 'SA', 'TAS', 'ACT', 'NT'];
 const total = chemists.length;
 ---
 
-<Layout title="Chemists Near Me" description="Find gyms, fitness centres and CrossFit boxes near you across every state and suburb in Australia.">
+<Layout title="Chemists Near Me" description="Find listings near you across every state and suburb in Australia.">
 
   <div class="dir-page-hero">
     <div class="container">
@@ -34,7 +34,7 @@ const total = chemists.length;
   </div>
 
   <div class="results-grid" id="results-grid">
-    {chemists.slice(0, 48).map(gym => (
+    {chemists.slice(0, 48).map(item => (
       <a href={gym.maps_url} target="_blank" rel="noopener" class="result-card" data-name={gym.name.toLowerCase()} data-state={gym.state} data-suburb={gym.suburb.toLowerCase()} data-rating={gym.rating || 0} data-reviews={gym.total_ratings || 0}>
         <div class="result-card-name">{gym.name}</div>
         <div class="result-card-loc">📍 {gym.address}</div>
@@ -93,7 +93,7 @@ const total = chemists.length;
     const cards = filtered.slice(0, shown);
     count!.textContent = `Showing ${cards.length.toLocaleString()} of ${filtered.length.toLocaleString()} gyms`;
 
-    grid.innerHTML = cards.map(gym => `
+    grid.innerHTML = cards.map(item => `
       <a href="${gym.maps_url}" target="_blank" rel="noopener" class="result-card">
         <div class="result-card-name">${gym.name}</div>
         <div class="result-card-loc">📍 ${gym.address}</div>
