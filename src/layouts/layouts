@@ -19,14 +19,18 @@ const { title, description } = Astro.props;
       NearUs
     </a>
     <ul class="nav-links">
-  <li><a href="/">Home</a></li>
-  <li><a href="/#directories">Directories</a></li>
-  <li><a href="/about">About</a></li>
-</ul>
+      <li><a href="/gyms">Gyms</a></li>
+      <li><a href="/camping">Camping</a></li>
+      <li><a href="/dog-parks">Dog Parks</a></li>
+      <li><a href="/markets">Markets</a></li>
+      <li><a href="/#directories">All Directories</a></li>
+    </ul>
   </nav>
+
   <main>
     <slot />
   </main>
+
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-logo">

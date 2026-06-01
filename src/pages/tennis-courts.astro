@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+import tenniscourts from '../data/tennis-courts.json';
+
+const states = ['NSW', 'VIC', 'QLD', 'WA', 'SA', 'TAS', 'ACT', 'NT'];
+const total = tenniscourts.length;
+---
+
+<Layout title="Tennis Courts Near Me" description="Find gyms, fitness centres and CrossFit boxes near you across every state and suburb in Australia.">
+
+  <div class="dir-page-hero">
+    <div class="container">
+      <h1>🏋️ Tennis Courts Near Me</h1>
+<p class="hero-sub-location">Finding public tennis courts across all of Australia</p>
+      <p>Find {total.toLocaleString()} public tennis courts across every state.</p>
+    </div>
+  </div>
+
+  <div class="dir-search">
+    <input type="text" id="search-input" placeholder="Search by name or suburb..." />
+    <select id="state-filter">
+      <option value="">All States</option>
+      {states.map(s => <option value={s}>{s}</option>)}
+    </select>
+    <select id="sort-filter">
+      <option value="rating">Top Rated</option>
+      <option value="name">A–Z</option>
+      <option value="reviews">Most Reviews</option>
+    </select>
+  </div>
+
+  <div class="results-count" id="results-count">
+    Showing public tennis courts
+  </div>
+
+  <div class="results-grid" id="results-grid">
+    {tenniscourts.slice(0, 48).map(gym => (
+      <a href={gym.maps_url} target="_blank" rel="noopener" class="result-card" data-name={gym.name.toLowerCase()} data-state={gym.state} data-suburb={gym.suburb.toLowerCase()} data-rating={gym.rating || 0} data-reviews={gym.total_ratings || 0}>
+        <div class="result-card-name">{gym.name}</div>
+        <div class="result-card-loc">📍 {gym.address}</div>
+        {gym.rating && <div class="result-card-rating">⭐ {gym.rating} ({gym.total_ratings?.toLocaleString()} reviews)</div>}
+        <span class="result-card-state">{gym.state}</span>
+      </a>
+    ))}
+  </div>
+
+  <div style="text-align:center; padding: 2rem;">
+    <button class="load-more-btn" id="load-more">Load More</button>
+  </div>
+
+  <div class="ad-slot" style="max-width:1100px; margin: 0 auto 2rem;">Google AdSense</div>
+
+</Layout>
+
+<style>
+  .result-card-rating {
+    font-size: 0.78rem;
+    color: var(--mid);
+  }
+  .load-more-btn {
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .load-more-btn:hover { background: var(--green-light); }
+</style>
+
+<script>
+  const allGyms = await fetch('/api/tennis-courts.json').catch(() => null);
+
+  let tenniscourtsData: any[] = [];
+  let filtered: any[] = [];
+  let shown = 48;
+
+  async function loadData() {
+    const res = await fetch('/tennis-courts-data.json');
+    tenniscourtsData = await res.json();
+    filtered = [...tenniscourtsData];
+  }
+
+  function renderCards() {
+    const grid = document.getElementById('results-grid');
+    const count = document.getElementById('results-count');
+    if (!grid) return;
+
+    const cards = filtered.slice(0, shown);
+    count!.textContent = `Showing public tennis courts`;
+
+    grid.innerHTML = cards.map(gym => `
+      <a href="${gym.maps_url}" target="_blank" rel="noopener" class="result-card">
+        <div class="result-card-name">${gym.name}</div>
+        <div class="result-card-loc">📍 ${gym.address}</div>
+        ${gym.rating ? `<div class="result-card-rating">⭐ ${gym.rating} (${gym.total_ratings?.toLocaleString()} reviews)</div>` : ''}
+        <span class="result-card-state">${gym.state}</span>
+      </a>
+    `).join('');
+  }
+
+  function applyFilters() {
+    const search = (document.getElementById('search-input') as HTMLInputElement).value.toLowerCase();
+    const state = (document.getElementById('state-filter') as HTMLSelectElement).value;
+    const sort = (document.getElementById('sort-filter') as HTMLSelectElement).value;
+
+    filtered = tenniscourtsData.filter(g => {
+      const matchSearch = !search || g.name.toLowerCase().includes(search) || g.suburb.toLowerCase().includes(search);
+      const matchState = !state || g.state === state;
+      return matchSearch && matchState;
+    });
+
+    if (sort === 'rating') filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    if (sort === 'name') filtered.sort((a, b) => a.name.localeCompare(b.name));
+    if (sort === 'reviews') filtered.sort((a, b) => (b.total_ratings || 0) - (a.total_ratings || 0));
+
+    shown = 48;
+    renderCards();
+  }
+
+  document.getElementById('search-input')?.addEventListener('input', applyFilters);
+  document.getElementById('state-filter')?.addEventListener('change', applyFilters);
+  document.getElementById('sort-filter')?.addEventListener('change', applyFilters);
+  document.getElementById('load-more')?.addEventListener('click', () => {
+    shown += 48;
+    renderCards();
+  });
+
+  // Copy gyms data to public for client-side access
+  window.addEventListener('load', async () => {
+    const res = await fetch('/tennis-courts-data.json').catch(() => null);
+    if (res?.ok) {
+      tenniscourtsData = await res.json();
+      filtered = [...tenniscourtsData];
+      applyFilters();
+    }
+  });
+</script>
