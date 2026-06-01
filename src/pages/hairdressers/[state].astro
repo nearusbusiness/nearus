@@ -46,7 +46,7 @@ const stateName = stateNames[state] || state;
   </div>
 
   <div class="results-grid" id="results-grid">
-    {hairdressers.slice(0, 48).map((gym: any) => (
+    {hairdressers.slice(0, 48).map((item: any) => (
       <a href={item.maps_url} target="_blank" rel="noopener" class="result-card" data-name={item.name.toLowerCase()} data-suburb={item.suburb.toLowerCase()} data-rating={item.rating || 0} data-reviews={item.total_ratings || 0}>
         <div class="result-card-name">{item.name}</div>
         <div class="result-card-loc">📍 {item.address}</div>
