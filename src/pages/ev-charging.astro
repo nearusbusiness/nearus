@@ -97,7 +97,7 @@ const total = evcharging.length;
     const sort = document.getElementById('sort-filter')?.value || 'rating';
 
     filtered = allData.filter(g => {
-      const matchSearch = !search || g.name.toLowerCase().includes(search) || g.suburb.toLowerCase().includes(search);
+      const matchSearch = !search || g.name.toLowerCase().includes(search) || g.suburb.toLowerCase().includes(search) || (g.address || '').toLowerCase().includes(search);
       const matchState = !state || g.state === state;
       return matchSearch && matchState;
     });
