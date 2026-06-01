@@ -1,18 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import camping from '../data/camping.json';
+import gyms from '../data/camping.json';
 
 const states = ['NSW', 'VIC', 'QLD', 'WA', 'SA', 'TAS', 'ACT', 'NT'];
-const total = camping.length;
+const total = gyms.length;
 ---
 
-<Layout title="Free Camping Near Me" description="Find listings near you across every state and suburb in Australia.">
+<Layout title="Free Camping Near Me" description="Find gyms, fitness centres and CrossFit boxes near you across every state and suburb in Australia.">
 
   <div class="dir-page-hero">
     <div class="container">
       <h1>🏋️ Free Camping Near Me</h1>
-<p class="hero-sub-location">Finding free campsites and caravan parks across all of Australia</p>
-      <p>Find {total.toLocaleString()} free campsites and caravan parks across every state.</p>
+<p class="hero-sub-location">Finding gyms across all of Australia</p>
+      <p>Find {total.toLocaleString()} gyms, fitness centres and CrossFit boxes across every state.</p>
     </div>
   </div>
 
@@ -30,16 +30,16 @@ const total = camping.length;
   </div>
 
   <div class="results-count" id="results-count">
-    Showing free campsites and caravan parks
+    Showing {total.toLocaleString()} gyms
   </div>
 
   <div class="results-grid" id="results-grid">
-    {camping.slice(0, 48).map(item => (
-      <a href={item.maps_url} target="_blank" rel="noopener" class="result-card" data-name={item.name.toLowerCase()} data-state={item.state} data-suburb={item.suburb.toLowerCase()} data-rating={item.rating || 0} data-reviews={item.total_ratings || 0}>
-        <div class="result-card-name">{item.name}</div>
-        <div class="result-card-loc">📍 {item.address}</div>
-        {item.rating && <div class="result-card-rating">⭐ {item.rating} ({item.total_ratings?.toLocaleString()} reviews)</div>}
-        <span class="result-card-state">{item.state}</span>
+    {gyms.slice(0, 48).map(gym => (
+      <a href={gym.maps_url} target="_blank" rel="noopener" class="result-card" data-name={gym.name.toLowerCase()} data-state={gym.state} data-suburb={gym.suburb.toLowerCase()} data-rating={gym.rating || 0} data-reviews={gym.total_ratings || 0}>
+        <div class="result-card-name">{gym.name}</div>
+        <div class="result-card-loc">📍 {gym.address}</div>
+        {gym.rating && <div class="result-card-rating">⭐ {gym.rating} ({gym.total_ratings?.toLocaleString()} reviews)</div>}
+        <span class="result-card-state">{gym.state}</span>
       </a>
     ))}
   </div>
@@ -73,42 +73,30 @@ const total = camping.length;
 </style>
 
 <script>
-  const allGyms = await fetch('/api/camping.json').catch(() => null);
-
-  let campingData: any[] = [];
-  let filtered: any[] = [];
+  let allData = [];
+  let filtered = [];
   let shown = 48;
-
-  async function loadData() {
-    const res = await fetch('/camping-data.json');
-    campingData = await res.json();
-    filtered = [...campingData];
-  }
 
   function renderCards() {
     const grid = document.getElementById('results-grid');
     const count = document.getElementById('results-count');
     if (!grid) return;
-
     const cards = filtered.slice(0, shown);
-    count!.textContent = `Showing free campsites and caravan parks`;
-
-    grid.innerHTML = cards.map(item => `
-      <a href="${item.maps_url}" target="_blank" rel="noopener" class="result-card">
-        <div class="result-card-name">${item.name}</div>
-        <div class="result-card-loc">📍 ${item.address}</div>
-        ${item.rating ? `<div class="result-card-rating">⭐ ${item.rating} (${item.total_ratings?.toLocaleString()} reviews)</div>` : ''}
-        <span class="result-card-state">${item.state}</span>
-      </a>
-    `).join('');
+    if (count) count.textContent = 'Showing ' + Math.min(shown, filtered.length).toLocaleString() + ' of ' + filtered.length.toLocaleString() + ' listings';
+    grid.innerHTML = cards.map(item => '<a href="' + item.maps_url + '" target="_blank" rel="noopener" class="result-card">' +
+      '<div class="result-card-name">' + item.name + '</div>' +
+      '<div class="result-card-loc">📍 ' + item.address + '</div>' +
+      (item.rating ? '<div class="result-card-rating">⭐ ' + item.rating + ' (' + (item.total_ratings || 0).toLocaleString() + ' reviews)</div>' : '') +
+      '<span class="result-card-state">' + item.state + '</span>' +
+      '</a>').join('');
   }
 
   function applyFilters() {
-    const search = (document.getElementById('search-input') as HTMLInputElement).value.toLowerCase();
-    const state = (document.getElementById('state-filter') as HTMLSelectElement).value;
-    const sort = (document.getElementById('sort-filter') as HTMLSelectElement).value;
+    const search = (document.getElementById('search-input')?.value || '').toLowerCase();
+    const state = document.getElementById('state-filter')?.value || '';
+    const sort = document.getElementById('sort-filter')?.value || 'rating';
 
-    filtered = campingData.filter(g => {
+    filtered = allData.filter(g => {
       const matchSearch = !search || g.name.toLowerCase().includes(search) || g.suburb.toLowerCase().includes(search);
       const matchState = !state || g.state === state;
       return matchSearch && matchState;
@@ -125,18 +113,16 @@ const total = camping.length;
   document.getElementById('search-input')?.addEventListener('input', applyFilters);
   document.getElementById('state-filter')?.addEventListener('change', applyFilters);
   document.getElementById('sort-filter')?.addEventListener('change', applyFilters);
-  document.getElementById('load-more')?.addEventListener('click', () => {
-    shown += 48;
-    renderCards();
-  });
+  document.getElementById('load-more')?.addEventListener('click', () => { shown += 48; renderCards(); });
 
-  // Copy gyms data to public for client-side access
   window.addEventListener('load', async () => {
-    const res = await fetch('/camping-data.json').catch(() => null);
-    if (res?.ok) {
-      campingData = await res.json();
-      filtered = [...campingData];
+    try {
+      const res = await fetch('/camping-data.json');
+      allData = await res.json();
+      filtered = [...allData];
       applyFilters();
+    } catch(e) {
+      console.error('Failed to load data', e);
     }
   });
 </script>

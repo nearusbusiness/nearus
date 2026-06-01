@@ -73,42 +73,30 @@ const total = pools.length;
 </style>
 
 <script>
-  const allGyms = await fetch('/api/pools.json').catch(() => null);
-
-  let poolsData: any[] = [];
-  let filtered: any[] = [];
+  let allData = [];
+  let filtered = [];
   let shown = 48;
-
-  async function loadData() {
-    const res = await fetch('/pools-data.json');
-    poolsData = await res.json();
-    filtered = [...poolsData];
-  }
 
   function renderCards() {
     const grid = document.getElementById('results-grid');
     const count = document.getElementById('results-count');
     if (!grid) return;
-
     const cards = filtered.slice(0, shown);
-    count!.textContent = `Showing public swimming pools and aquatic centres`;
-
-    grid.innerHTML = cards.map(item => `
-      <a href="${gym.maps_url}" target="_blank" rel="noopener" class="result-card">
-        <div class="result-card-name">${gym.name}</div>
-        <div class="result-card-loc">📍 ${gym.address}</div>
-        ${item.rating ? `<div class="result-card-rating">⭐ ${item.rating} (${item.total_ratings?.toLocaleString()} reviews)</div>` : ''}
-        <span class="result-card-state">${gym.state}</span>
-      </a>
-    `).join('');
+    if (count) count.textContent = 'Showing ' + Math.min(shown, filtered.length).toLocaleString() + ' of ' + filtered.length.toLocaleString() + ' listings';
+    grid.innerHTML = cards.map(item => '<a href="' + item.maps_url + '" target="_blank" rel="noopener" class="result-card">' +
+      '<div class="result-card-name">' + item.name + '</div>' +
+      '<div class="result-card-loc">📍 ' + item.address + '</div>' +
+      (item.rating ? '<div class="result-card-rating">⭐ ' + item.rating + ' (' + (item.total_ratings || 0).toLocaleString() + ' reviews)</div>' : '') +
+      '<span class="result-card-state">' + item.state + '</span>' +
+      '</a>').join('');
   }
 
   function applyFilters() {
-    const search = (document.getElementById('search-input') as HTMLInputElement).value.toLowerCase();
-    const state = (document.getElementById('state-filter') as HTMLSelectElement).value;
-    const sort = (document.getElementById('sort-filter') as HTMLSelectElement).value;
+    const search = (document.getElementById('search-input')?.value || '').toLowerCase();
+    const state = document.getElementById('state-filter')?.value || '';
+    const sort = document.getElementById('sort-filter')?.value || 'rating';
 
-    filtered = poolsData.filter(g => {
+    filtered = allData.filter(g => {
       const matchSearch = !search || g.name.toLowerCase().includes(search) || g.suburb.toLowerCase().includes(search);
       const matchState = !state || g.state === state;
       return matchSearch && matchState;
@@ -125,18 +113,16 @@ const total = pools.length;
   document.getElementById('search-input')?.addEventListener('input', applyFilters);
   document.getElementById('state-filter')?.addEventListener('change', applyFilters);
   document.getElementById('sort-filter')?.addEventListener('change', applyFilters);
-  document.getElementById('load-more')?.addEventListener('click', () => {
-    shown += 48;
-    renderCards();
-  });
+  document.getElementById('load-more')?.addEventListener('click', () => { shown += 48; renderCards(); });
 
-  // Copy gyms data to public for client-side access
   window.addEventListener('load', async () => {
-    const res = await fetch('/pools-data.json').catch(() => null);
-    if (res?.ok) {
-      poolsData = await res.json();
-      filtered = [...poolsData];
+    try {
+      const res = await fetch('/pools-data.json');
+      allData = await res.json();
+      filtered = [...allData];
       applyFilters();
+    } catch(e) {
+      console.error('Failed to load data', e);
     }
   });
 </script>
