@@ -51,7 +51,7 @@ const stateName = stateNames[state] || state;
         <div class="result-card-name">{item.name}</div>
         <div class="result-card-loc">📍 {item.address}</div>
         {item.rating && <div class="result-card-rating">⭐ {item.rating} ({item.total_ratings?.toLocaleString()} reviews)</div>}
-        <span class="result-card-state">{gym.suburb}</span>
+        <span class="result-card-state">{item.suburb}</span>
       </a>
     ))}
   </div>
