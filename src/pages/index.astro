@@ -1,0 +1,195 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Australia's Local Directory" description="Find gyms, free camping, dog parks, markets and more across every state in Australia.">
+
+  <section class="hero">
+    <div class="hero-eyebrow">🇦🇺 Australia's Local Directory</div>
+    <h1>Find anything,<br><em>near you</em> in Australia</h1>
+    <p class="hero-sub">Gyms, camping spots, dog parks, markets and more — every suburb, every state, all in one place.</p>
+    <div class="search-wrap">
+      <input type="text" id="hero-search" placeholder="Search gyms, parks, markets..." />
+      <button class="search-btn" onclick="heroSearch()">Search</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">12,400+</div>
+        <div class="hero-stat-label">Listings</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">10</div>
+        <div class="hero-stat-label">Directories</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">All States</div>
+        <div class="hero-stat-label">Covered</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="state-strip">
+    <div class="state-strip-inner">
+      <div class="state-pill active" onclick="filterState('all', this)">All States</div>
+      <div class="state-pill" onclick="filterState('NSW', this)">NSW</div>
+      <div class="state-pill" onclick="filterState('VIC', this)">VIC</div>
+      <div class="state-pill" onclick="filterState('QLD', this)">QLD</div>
+      <div class="state-pill" onclick="filterState('WA', this)">WA</div>
+      <div class="state-pill" onclick="filterState('SA', this)">SA</div>
+      <div class="state-pill" onclick="filterState('TAS', this)">TAS</div>
+      <div class="state-pill" onclick="filterState('ACT', this)">ACT</div>
+      <div class="state-pill" onclick="filterState('NT', this)">NT</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="section" id="directories">
+      <div class="section-header">
+        <h2 class="section-title">Browse Directories</h2>
+        <a href="#directories" class="section-link">View all →</a>
+      </div>
+      <div class="dir-grid">
+
+        <a href="/gyms" class="dir-card">
+          <div class="dir-card-icon">🏋️</div>
+          <div class="dir-card-name">Gyms</div>
+          <div class="dir-card-desc">Find gyms, fitness centres, and CrossFit boxes near you across every state.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count">4,200+ listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/camping" class="dir-card">
+          <div class="dir-card-icon">⛺</div>
+          <div class="dir-card-name">Free Camping</div>
+          <div class="dir-card-desc">Free and low-cost campsites on public land across Australia by state and region.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count">3,100+ listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/dog-parks" class="dir-card">
+          <div class="dir-card-icon">🐕</div>
+          <div class="dir-card-name">Off-Leash Dog Parks</div>
+          <div class="dir-card-desc">Off-leash areas, dog beaches, and fenced dog parks by suburb and city.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count">2,800+ listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/markets" class="dir-card">
+          <div class="dir-card-icon">🛒</div>
+          <div class="dir-card-name">Markets</div>
+          <div class="dir-card-desc">Farmers markets, night markets, and weekend markets across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count">1,900+ listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <div class="ad-slot">Google AdSense — 728×90</div>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title" id="listings-title">Recent Listings</h2>
+        <a href="#" class="section-link">View all →</a>
+      </div>
+      <div class="listing-grid" id="listings-grid">
+
+        <a href="/gyms" class="listing-card" data-state="WA">
+          <div class="listing-icon">🏋️</div>
+          <div class="listing-info">
+            <div class="listing-name">Joondalup Gym & Fitness</div>
+            <div class="listing-loc">📍 Joondalup, WA</div>
+          </div>
+          <span class="listing-badge">Gym</span>
+        </a>
+
+        <a href="/camping" class="listing-card" data-state="WA">
+          <div class="listing-icon">⛺</div>
+          <div class="listing-info">
+            <div class="listing-name">Beelu National Park Campsite</div>
+            <div class="listing-loc">📍 Mundaring, WA</div>
+          </div>
+          <span class="listing-badge">Free Camp</span>
+        </a>
+
+        <a href="/dog-parks" class="listing-card" data-state="WA">
+          <div class="listing-icon">🐕</div>
+          <div class="listing-info">
+            <div class="listing-name">Mindarie Dog Beach</div>
+            <div class="listing-loc">📍 Mindarie, WA</div>
+          </div>
+          <span class="listing-badge">Dog Park</span>
+        </a>
+
+        <a href="/markets" class="listing-card" data-state="WA">
+          <div class="listing-icon">🛒</div>
+          <div class="listing-info">
+            <div class="listing-name">Subiaco Farmers Market</div>
+            <div class="listing-loc">📍 Subiaco, WA</div>
+          </div>
+          <span class="listing-badge">Market</span>
+        </a>
+
+        <a href="/gyms" class="listing-card" data-state="NSW">
+          <div class="listing-icon">🏋️</div>
+          <div class="listing-info">
+            <div class="listing-name">Surry Hills Fitness Club</div>
+            <div class="listing-loc">📍 Surry Hills, NSW</div>
+          </div>
+          <span class="listing-badge">Gym</span>
+        </a>
+
+        <a href="/markets" class="listing-card" data-state="VIC">
+          <div class="listing-icon">🛒</div>
+          <div class="listing-info">
+            <div class="listing-name">Fitzroy Night Market</div>
+            <div class="listing-loc">📍 Fitzroy, VIC</div>
+          </div>
+          <span class="listing-badge">Market</span>
+        </a>
+
+      </div>
+    </section>
+
+    <div class="ad-slot">Google AdSense — 300×250</div>
+
+  </div>
+
+</Layout>
+
+<script>
+  function heroSearch() {
+    const q = (document.getElementById('hero-search') as HTMLInputElement).value.trim();
+    if (!q) return;
+    window.location.href = `/gyms?q=${encodeURIComponent(q)}`;
+  }
+
+  document.getElementById('hero-search')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') heroSearch();
+  });
+
+  function filterState(state: string, el: HTMLElement) {
+    document.querySelectorAll('.state-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    const cards = document.querySelectorAll('#listings-grid .listing-card');
+    cards.forEach((card: Element) => {
+      const c = card as HTMLElement;
+      c.style.display = (state === 'all' || c.dataset.state === state) ? 'flex' : 'none';
+    });
+    const title = document.getElementById('listings-title');
+    if (title) title.textContent = state === 'all' ? 'Recent Listings' : `Recent Listings — ${state}`;
+  }
+
+  (window as any).filterState = filterState;
+  (window as any).heroSearch = heroSearch;
+</script>
