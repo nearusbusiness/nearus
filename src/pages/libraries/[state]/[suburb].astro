@@ -5,7 +5,7 @@ import librariesData from '../../../data/libraries.json';
 export function getStaticPaths() {
   const grouped: Record<string, Record<string, any[]>> = {};
   
-  for (const gym of librariesData) {
+  for (const libraries of librariesData) {
     const state = (gym.state as string).toLowerCase();
     const suburb = (gym.suburb as string).toLowerCase()
   .replace(/\s+/g, '-')

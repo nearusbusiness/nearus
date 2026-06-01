@@ -5,7 +5,7 @@ import tenniscourtsData from '../../../data/tennis-courts.json';
 export function getStaticPaths() {
   const grouped: Record<string, Record<string, any[]>> = {};
   
-  for (const gym of tenniscourtsData) {
+  for (const tenniscourts of tenniscourtsData) {
     const state = (gym.state as string).toLowerCase();
     const suburb = (gym.suburb as string).toLowerCase()
   .replace(/\s+/g, '-')
