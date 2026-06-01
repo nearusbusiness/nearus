@@ -3,11 +3,25 @@ import Layout from '../layouts/Layout.astro';
 import gymsData from '../data/gyms.json';
 import campingData from '../data/camping.json';
 import dogParksData from '../data/dog-parks.json';
+import marketsData from '../data/markets.json';
+import poolsData from '../data/pools.json';
+import skateParksData from '../data/skate-parks.json';
+import playgroundsData from '../data/playgrounds.json';
+import tennisData from '../data/tennis-courts.json';
+import evData from '../data/ev-charging.json';
+import librariesData from '../data/libraries.json';
 
 const gymCount = gymsData.length;
 const campingCount = campingData.length;
 const dogParksCount = dogParksData.length;
-const totalCount = gymCount + campingCount + dogParksCount;
+const marketsCount = marketsData.length;
+const poolsCount = poolsData.length;
+const skateParksCount = skateParksData.length;
+const playgroundsCount = playgroundsData.length;
+const tennisCount = tennisData.length;
+const evCount = evData.length;
+const librariesCount = librariesData.length;
+const totalCount = gymCount + campingCount + dogParksCount + marketsCount + poolsCount + skateParksCount + playgroundsCount + tennisCount + evCount + librariesCount;
 
 const states = ['NSW','VIC','QLD','WA','SA','TAS','ACT','NT'];
 
@@ -15,6 +29,13 @@ const stateCounts = {
   gyms: Object.fromEntries(states.map(s => [s, (gymsData as any[]).filter(g => g.state === s).length])),
   camping: Object.fromEntries(states.map(s => [s, (campingData as any[]).filter(g => g.state === s).length])),
   dogParks: Object.fromEntries(states.map(s => [s, (dogParksData as any[]).filter(g => g.state === s).length])),
+  markets: Object.fromEntries(states.map(s => [s, (marketsData as any[]).filter(g => g.state === s).length])),
+  pools: Object.fromEntries(states.map(s => [s, (poolsData as any[]).filter(g => g.state === s).length])),
+  skateParks: Object.fromEntries(states.map(s => [s, (skateParksData as any[]).filter(g => g.state === s).length])),
+  playgrounds: Object.fromEntries(states.map(s => [s, (playgroundsData as any[]).filter(g => g.state === s).length])),
+  tennis: Object.fromEntries(states.map(s => [s, (tennisData as any[]).filter(g => g.state === s).length])),
+  ev: Object.fromEntries(states.map(s => [s, (evData as any[]).filter(g => g.state === s).length])),
+  libraries: Object.fromEntries(states.map(s => [s, (librariesData as any[]).filter(g => g.state === s).length])),
 }
 ---
 
