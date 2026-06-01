@@ -10,6 +10,16 @@ import playgroundsData from '../data/playgrounds.json';
 import tennisData from '../data/tennis-courts.json';
 import evData from '../data/ev-charging.json';
 import librariesData from '../data/libraries.json';
+import restaurantsData from '../data/restaurants.json';
+import cafesData from '../data/cafes.json';
+import chemistsData from '../data/chemists.json';
+import petrolData from '../data/petrol-stations.json';
+import parksData from '../data/parks.json';
+import beachesData from '../data/beaches.json';
+import medicalData from '../data/medical-centres.json';
+import dentistsData from '../data/dentists.json';
+import vetsData from '../data/vets.json';
+import childcareData from '../data/childcare.json';
 
 const gymCount = gymsData.length;
 const campingCount = campingData.length;
@@ -21,7 +31,18 @@ const playgroundsCount = playgroundsData.length;
 const tennisCount = tennisData.length;
 const evCount = evData.length;
 const librariesCount = librariesData.length;
-const totalCount = gymCount + campingCount + dogParksCount + marketsCount + poolsCount + skateParksCount + playgroundsCount + tennisCount + evCount + librariesCount;
+const restaurantsCount = restaurantsData.length;
+const cafesCount = cafesData.length;
+const chemistsCount = chemistsData.length;
+const petrolCount = petrolData.length;
+const parksCount = parksData.length;
+const beachesCount = beachesData.length;
+const medicalCount = medicalData.length;
+const dentistsCount = dentistsData.length;
+const vetsCount = vetsData.length;
+const childcareCount = childcareData.length;
+
+const totalCount = gymCount + campingCount + dogParksCount + marketsCount + poolsCount + skateParksCount + playgroundsCount + tennisCount + evCount + librariesCount + restaurantsCount + cafesCount + chemistsCount + petrolCount + parksCount + beachesCount + medicalCount + dentistsCount + vetsCount + childcareCount;
 
 const states = ['NSW','VIC','QLD','WA','SA','TAS','ACT','NT'];
 
@@ -36,18 +57,28 @@ const stateCounts = {
   tennis: Object.fromEntries(states.map(s => [s, (tennisData as any[]).filter(g => g.state === s).length])),
   ev: Object.fromEntries(states.map(s => [s, (evData as any[]).filter(g => g.state === s).length])),
   libraries: Object.fromEntries(states.map(s => [s, (librariesData as any[]).filter(g => g.state === s).length])),
+  restaurants: Object.fromEntries(states.map(s => [s, (restaurantsData as any[]).filter(g => g.state === s).length])),
+  cafes: Object.fromEntries(states.map(s => [s, (cafesData as any[]).filter(g => g.state === s).length])),
+  chemists: Object.fromEntries(states.map(s => [s, (chemistsData as any[]).filter(g => g.state === s).length])),
+  petrol: Object.fromEntries(states.map(s => [s, (petrolData as any[]).filter(g => g.state === s).length])),
+  parks: Object.fromEntries(states.map(s => [s, (parksData as any[]).filter(g => g.state === s).length])),
+  beaches: Object.fromEntries(states.map(s => [s, (beachesData as any[]).filter(g => g.state === s).length])),
+  medical: Object.fromEntries(states.map(s => [s, (medicalData as any[]).filter(g => g.state === s).length])),
+  dentists: Object.fromEntries(states.map(s => [s, (dentistsData as any[]).filter(g => g.state === s).length])),
+  vets: Object.fromEntries(states.map(s => [s, (vetsData as any[]).filter(g => g.state === s).length])),
+  childcare: Object.fromEntries(states.map(s => [s, (childcareData as any[]).filter(g => g.state === s).length])),
 }
 ---
 
-<Layout title="Australia's Local Directory" description="Find gyms, free camping, dog parks, markets and more across every state in Australia.">
+<Layout title="Australia's Local Directory" description="Find gyms, free camping, dog parks, restaurants, beaches and more across every state in Australia.">
 
   <section class="hero">
     <div class="hero-eyebrow">🇦🇺 Australia's Local Directory</div>
     <h1>Find anything,<br><em>near you</em> in Australia</h1>
-    <p class="hero-sub">Gyms, camping spots, dog parks, markets and more — every suburb, every state, all in one place.</p>
+    <p class="hero-sub">Gyms, camping, dog parks, restaurants, beaches and more — every suburb, every state, all in one place.</p>
 
     <div class="search-wrap">
-      <input type="text" id="hero-search" placeholder="Search gyms, parks, markets..." />
+      <input type="text" id="hero-search" placeholder="Search directories..." />
       <button class="search-btn" onclick="heroSearch()">Search</button>
     </div>
 
@@ -57,7 +88,7 @@ const stateCounts = {
         <div class="hero-stat-label">Listings</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-num">10</div>
+        <div class="hero-stat-num">20</div>
         <div class="hero-stat-label">Directories</div>
       </div>
       <div class="hero-stat">
@@ -87,9 +118,9 @@ const stateCounts = {
         <h2 class="section-title">Browse Directories</h2>
         <a href="#directories" class="section-link">View all →</a>
       </div>
-      <div class="dir-grid">
+      <div class="dir-grid" id="dir-grid">
 
-        <a href="/gyms" class="dir-card">
+        <a href="/gyms" class="dir-card" data-keywords="gym fitness crossfit workout exercise weights training">
           <div class="dir-card-icon">🏋️</div>
           <div class="dir-card-name">Gyms</div>
           <div class="dir-card-desc">Find gyms, fitness centres, and CrossFit boxes near you across every state.</div>
@@ -99,7 +130,7 @@ const stateCounts = {
           </div>
         </a>
 
-        <a href="/camping" class="dir-card">
+        <a href="/camping" class="dir-card" data-keywords="camping campsite caravan free outdoor nature">
           <div class="dir-card-icon">⛺</div>
           <div class="dir-card-name">Free Camping</div>
           <div class="dir-card-desc">Free and low-cost campsites on public land across Australia by state and region.</div>
@@ -109,7 +140,7 @@ const stateCounts = {
           </div>
         </a>
 
-        <a href="/dog-parks" class="dir-card">
+        <a href="/dog-parks" class="dir-card" data-keywords="dog park off leash pet animal walk">
           <div class="dir-card-icon">🐕</div>
           <div class="dir-card-name">Off-Leash Dog Parks</div>
           <div class="dir-card-desc">Off-leash areas, dog beaches, and fenced dog parks by suburb and city.</div>
@@ -119,72 +150,172 @@ const stateCounts = {
           </div>
         </a>
 
-        <a href="/markets" class="dir-card">
+        <a href="/markets" class="dir-card" data-keywords="market farmers food weekend stalls shopping">
           <div class="dir-card-icon">🛒</div>
           <div class="dir-card-name">Markets</div>
           <div class="dir-card-desc">Farmers markets, night markets, and weekend markets across Australia.</div>
           <div class="dir-card-meta">
-            <span class="dir-card-count">Coming soon</span>
+            <span class="dir-card-count" id="markets-count">{marketsCount.toLocaleString()} listings</span>
             <span class="dir-card-arrow">→</span>
           </div>
         </a>
 
-        <a href="/pools" class="dir-card">
+        <a href="/pools" class="dir-card" data-keywords="pool swimming aquatic laps water">
           <div class="dir-card-icon">🏊</div>
           <div class="dir-card-name">Swimming Pools</div>
           <div class="dir-card-desc">Public swimming pools and aquatic centres across every state.</div>
           <div class="dir-card-meta">
-            <span class="dir-card-count">Coming soon</span>
+            <span class="dir-card-count" id="pools-count">{poolsCount.toLocaleString()} listings</span>
             <span class="dir-card-arrow">→</span>
           </div>
         </a>
 
-        <a href="/skate-parks" class="dir-card">
+        <a href="/skate-parks" class="dir-card" data-keywords="skate skateboard bmx park ramp halfpipe">
           <div class="dir-card-icon">🛹</div>
           <div class="dir-card-name">Skate Parks</div>
           <div class="dir-card-desc">Skate parks and skateboarding areas across Australia.</div>
           <div class="dir-card-meta">
-            <span class="dir-card-count">Coming soon</span>
+            <span class="dir-card-count" id="skateparks-count">{skateParksCount.toLocaleString()} listings</span>
             <span class="dir-card-arrow">→</span>
           </div>
         </a>
 
-        <a href="/playgrounds" class="dir-card">
+        <a href="/playgrounds" class="dir-card" data-keywords="playground play kids children family park">
           <div class="dir-card-icon">🛝</div>
           <div class="dir-card-name">Playgrounds</div>
           <div class="dir-card-desc">Playgrounds and play areas across every suburb in Australia.</div>
           <div class="dir-card-meta">
-            <span class="dir-card-count">Coming soon</span>
+            <span class="dir-card-count" id="playgrounds-count">{playgroundsCount.toLocaleString()} listings</span>
             <span class="dir-card-arrow">→</span>
           </div>
         </a>
 
-        <a href="/tennis-courts" class="dir-card">
+        <a href="/tennis-courts" class="dir-card" data-keywords="tennis court sport racket outdoor">
           <div class="dir-card-icon">🎾</div>
           <div class="dir-card-name">Tennis Courts</div>
           <div class="dir-card-desc">Public tennis courts across Australia by suburb and state.</div>
           <div class="dir-card-meta">
-            <span class="dir-card-count">Coming soon</span>
+            <span class="dir-card-count" id="tennis-count">{tennisCount.toLocaleString()} listings</span>
             <span class="dir-card-arrow">→</span>
           </div>
         </a>
 
-        <a href="/ev-charging" class="dir-card">
+        <a href="/ev-charging" class="dir-card" data-keywords="ev electric vehicle charging charge car tesla">
           <div class="dir-card-icon">⚡</div>
           <div class="dir-card-name">EV Charging</div>
           <div class="dir-card-desc">Electric vehicle charging stations across Australia.</div>
           <div class="dir-card-meta">
-            <span class="dir-card-count">Coming soon</span>
+            <span class="dir-card-count" id="ev-count">{evCount.toLocaleString()} listings</span>
             <span class="dir-card-arrow">→</span>
           </div>
         </a>
 
-        <a href="/libraries" class="dir-card">
+        <a href="/libraries" class="dir-card" data-keywords="library books reading public study">
           <div class="dir-card-icon">📚</div>
           <div class="dir-card-name">Libraries</div>
           <div class="dir-card-desc">Public libraries across every suburb and state in Australia.</div>
           <div class="dir-card-meta">
-            <span class="dir-card-count">Coming soon</span>
+            <span class="dir-card-count" id="libraries-count">{librariesCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/restaurants" class="dir-card" data-keywords="restaurant food dining eat dinner lunch bistro">
+          <div class="dir-card-icon">🍽️</div>
+          <div class="dir-card-name">Restaurants</div>
+          <div class="dir-card-desc">Find restaurants and dining near you across every suburb in Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="restaurants-count">{restaurantsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/cafes" class="dir-card" data-keywords="cafe coffee shop brunch breakfast tea barista">
+          <div class="dir-card-icon">☕</div>
+          <div class="dir-card-name">Cafes</div>
+          <div class="dir-card-desc">Find cafes and coffee shops near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="cafes-count">{cafesCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/chemists" class="dir-card" data-keywords="chemist pharmacy medicine prescription drugs health">
+          <div class="dir-card-icon">💊</div>
+          <div class="dir-card-name">Chemists</div>
+          <div class="dir-card-desc">Find pharmacies and chemists near you across every state.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="chemists-count">{chemistsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/petrol-stations" class="dir-card" data-keywords="petrol fuel gas station service diesel unleaded">
+          <div class="dir-card-icon">⛽</div>
+          <div class="dir-card-name">Petrol Stations</div>
+          <div class="dir-card-desc">Find petrol stations and service stations near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="petrol-count">{petrolCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/parks" class="dir-card" data-keywords="park reserve garden nature walk picnic outdoor green">
+          <div class="dir-card-icon">🌳</div>
+          <div class="dir-card-name">Parks</div>
+          <div class="dir-card-desc">Find parks and reserves near you across every suburb in Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="parks-count">{parksCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/beaches" class="dir-card" data-keywords="beach surf ocean swim sand coastal water waves">
+          <div class="dir-card-icon">🏖️</div>
+          <div class="dir-card-name">Beaches</div>
+          <div class="dir-card-desc">Find beaches and surf spots near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="beaches-count">{beachesCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/medical-centres" class="dir-card" data-keywords="doctor GP medical clinic health bulk bill appointment">
+          <div class="dir-card-icon">🏥</div>
+          <div class="dir-card-name">Medical Centres</div>
+          <div class="dir-card-desc">Find GP clinics and medical centres near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="medical-count">{medicalCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/dentists" class="dir-card" data-keywords="dentist dental teeth checkup orthodontist clinic">
+          <div class="dir-card-icon">🦷</div>
+          <div class="dir-card-name">Dentists</div>
+          <div class="dir-card-desc">Find dentists and dental clinics near you across every state.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="dentists-count">{dentistsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/vets" class="dir-card" data-keywords="vet veterinarian animal pet dog cat clinic hospital">
+          <div class="dir-card-icon">🐾</div>
+          <div class="dir-card-name">Vets</div>
+          <div class="dir-card-desc">Find veterinarians and vet clinics near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="vets-count">{vetsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/childcare" class="dir-card" data-keywords="childcare daycare kindergarten kids children family nursery">
+          <div class="dir-card-icon">👶</div>
+          <div class="dir-card-name">Childcare</div>
+          <div class="dir-card-desc">Find childcare centres and kindergartens near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="childcare-count">{childcareCount.toLocaleString()} listings</span>
             <span class="dir-card-arrow">→</span>
           </div>
         </a>
@@ -229,7 +360,7 @@ const stateCounts = {
           <span class="listing-badge">Dog Park</span>
         </a>
 
-        <a href="/gyms/nsw/sydney" class="listing-card" data-state="NSW">
+        <a href="/gyms/nsw/sydney-cbd" class="listing-card" data-state="NSW">
           <div class="listing-icon">🏋️</div>
           <div class="listing-info">
             <div class="listing-name">Surry Hills Fitness Club</div>
@@ -238,7 +369,7 @@ const stateCounts = {
           <span class="listing-badge">Gym</span>
         </a>
 
-        <a href="/camping/vic/melbourne" class="listing-card" data-state="VIC">
+        <a href="/camping/vic/melbourne-cbd" class="listing-card" data-state="VIC">
           <div class="listing-icon">⛺</div>
           <div class="listing-info">
             <div class="listing-name">Yarra Valley Campsite</div>
@@ -247,7 +378,7 @@ const stateCounts = {
           <span class="listing-badge">Free Camp</span>
         </a>
 
-        <a href="/dog-parks/qld/brisbane" class="listing-card" data-state="QLD">
+        <a href="/dog-parks/qld/brisbane-cbd" class="listing-card" data-state="QLD">
           <div class="listing-icon">🐕</div>
           <div class="listing-info">
             <div class="listing-name">Sandgate Dog Beach</div>
@@ -264,23 +395,41 @@ const stateCounts = {
 
 </Layout>
 
-<script define:vars={{ stateCounts, gymCount, campingCount, dogParksCount, totalCount }}>
-  const allCounts = { gyms: gymCount, camping: campingCount, dogParks: dogParksCount };
+<script define:vars={{ stateCounts, gymCount, campingCount, dogParksCount, marketsCount, poolsCount, skateParksCount, playgroundsCount, tennisCount, evCount, librariesCount, restaurantsCount, cafesCount, chemistsCount, petrolCount, parksCount, beachesCount, medicalCount, dentistsCount, vetsCount, childcareCount, totalCount }}>
+
+  const allCounts = {
+    gyms: gymCount, camping: campingCount, dogParks: dogParksCount,
+    markets: marketsCount, pools: poolsCount, skateParks: skateParksCount,
+    playgrounds: playgroundsCount, tennis: tennisCount, ev: evCount,
+    libraries: librariesCount, restaurants: restaurantsCount, cafes: cafesCount,
+    chemists: chemistsCount, petrol: petrolCount, parks: parksCount,
+    beaches: beachesCount, medical: medicalCount, dentists: dentistsCount,
+    vets: vetsCount, childcare: childcareCount
+  };
+
+  const countIds = [
+    ['gym-count', 'gyms'], ['camping-count', 'camping'], ['dogparks-count', 'dogParks'],
+    ['markets-count', 'markets'], ['pools-count', 'pools'], ['skateparks-count', 'skateParks'],
+    ['playgrounds-count', 'playgrounds'], ['tennis-count', 'tennis'], ['ev-count', 'ev'],
+    ['libraries-count', 'libraries'], ['restaurants-count', 'restaurants'], ['cafes-count', 'cafes'],
+    ['chemists-count', 'chemists'], ['petrol-count', 'petrol'], ['parks-count', 'parks'],
+    ['beaches-count', 'beaches'], ['medical-count', 'medical'], ['dentists-count', 'dentists'],
+    ['vets-count', 'vets'], ['childcare-count', 'childcare']
+  ];
 
   function filterState(state, el) {
     document.querySelectorAll('.state-pill').forEach(p => p.classList.remove('active'));
     el.classList.add('active');
-
     const isAll = state === 'all';
 
-    document.getElementById('gym-count').textContent =
-      (isAll ? allCounts.gyms : stateCounts.gyms[state] || 0).toLocaleString() + ' listings';
-    document.getElementById('camping-count').textContent =
-      (isAll ? allCounts.camping : stateCounts.camping[state] || 0).toLocaleString() + ' listings';
-    document.getElementById('dogparks-count').textContent =
-      (isAll ? allCounts.dogParks : stateCounts.dogParks[state] || 0).toLocaleString() + ' listings';
-    document.getElementById('total-count').textContent =
-      (isAll ? totalCount : (stateCounts.gyms[state] || 0) + (stateCounts.camping[state] || 0) + (stateCounts.dogParks[state] || 0)).toLocaleString() + '+';
+    countIds.forEach(([id, key]) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = (isAll ? allCounts[key] : (stateCounts[key]?.[state] || 0)).toLocaleString() + ' listings';
+    });
+
+    const newTotal = isAll ? totalCount : Object.values(stateCounts).reduce((sum, sc) => sum + (sc[state] || 0), 0);
+    const totalEl = document.getElementById('total-count');
+    if (totalEl) totalEl.textContent = newTotal.toLocaleString() + '+';
 
     const cards = document.querySelectorAll('#listings-grid .listing-card');
     cards.forEach(card => {
@@ -296,6 +445,20 @@ const stateCounts = {
     if (!q) return;
     window.location.href = `/gyms?q=${encodeURIComponent(q)}`;
   }
+
+  document.getElementById('hero-search')?.addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase().trim();
+    const cards = document.querySelectorAll('.dir-card');
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const name = card.querySelector('.dir-card-name')?.textContent?.toLowerCase() || '';
+      const desc = card.querySelector('.dir-card-desc')?.textContent?.toLowerCase() || '';
+      const keywords = card.getAttribute('data-keywords')?.toLowerCase() || '';
+      const show = !q || name.includes(q) || desc.includes(q) || keywords.includes(q);
+      card.style.display = show ? 'flex' : 'none';
+      if (show) visibleCount++;
+    });
+  });
 
   document.getElementById('hero-search')?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') heroSearch();
