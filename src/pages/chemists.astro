@@ -95,11 +95,11 @@ const total = chemists.length;
   function applyFilters() {
     const search = (document.getElementById('search-input')?.value || '').toLowerCase();
     const state = document.getElementById('state-filter')?.value || '';
+    const suburb = document.getElementById('suburb-filter')?.value || '';
     const sort = document.getElementById('sort-filter')?.value || 'rating';
 
     filtered = allData.filter(g => {
       const matchSearch = !search || g.name.toLowerCase().includes(search) || g.suburb.toLowerCase().includes(search) || (g.address || '').toLowerCase().includes(search);
-      const suburb = document.getElementById('suburb-filter')?.value || '';
       const matchState = !state || g.state === state;
       const matchSuburb = !suburb || g.suburb === suburb;
       return matchSearch && matchState && matchSuburb;

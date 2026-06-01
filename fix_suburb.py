@@ -1,6 +1,6 @@
 import os
 
-niches = ['camping', 'dog-parks', 'markets', 'pools', 'skate-parks', 'playgrounds', 'tennis-courts', 'ev-charging', 'libraries', 'restaurants', 'cafes', 'chemists', 'petrol-stations', 'parks', 'beaches', 'medical-centres', 'dentists', 'vets', 'childcare', 'supermarkets', 'hardware-stores', 'post-offices', 'banks', 'petshops', 'bakeries', 'hairdressers', 'car-washes', 'mechanics', 'bottle-shops']
+niches = ['gyms', 'camping', 'dog-parks', 'markets', 'pools', 'skate-parks', 'playgrounds', 'tennis-courts', 'ev-charging', 'libraries', 'restaurants', 'cafes', 'chemists', 'petrol-stations', 'parks', 'beaches', 'medical-centres', 'dentists', 'vets', 'childcare', 'supermarkets', 'hardware-stores', 'post-offices', 'banks', 'petshops', 'bakeries', 'hairdressers', 'car-washes', 'mechanics', 'bottle-shops']
 
 for niche in niches:
     filepath = f'src/pages/{niche}.astro'
@@ -9,7 +9,22 @@ for niche in niches:
     with open(filepath, 'r') as f:
         content = f.read()
 
-    new_script = f"""<script>
+    # Add suburb dropdown if missing
+    if 'suburb-filter' not in content:
+        content = content.replace(
+            '<select id="sort-filter">',
+            '<select id="suburb-filter"><option value="">All Suburbs</option></select>\n    <select id="sort-filter">'
+        )
+
+    # Replace everything from first <script> to end of file
+    start = content.find('<script>')
+    if start != -1:
+        content = content[:start].rstrip()
+
+    # Append single clean script
+    content += f"""
+
+<script>
   let allData = [];
   let filtered = [];
   let shown = 48;
@@ -78,14 +93,8 @@ for niche in niches:
       console.error('Failed to load data', e);
     }}
   }});
-</script>"""
-
-    # Find first script tag and replace everything from there to end of file
-    start = content.find('<script>')
-    if start != -1:
-        content = content[:start].rstrip() + '\n\n' + new_script + '\n'
-    else:
-        content = content.rstrip() + '\n\n' + new_script + '\n'
+</script>
+"""
 
     with open(filepath, 'w') as f:
         f.write(content)
