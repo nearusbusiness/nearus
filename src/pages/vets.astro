@@ -35,10 +35,10 @@ const total = vets.length;
 
   <div class="results-grid" id="results-grid">
     {vets.slice(0, 48).map(item => (
-      <a href={gym.maps_url} target="_blank" rel="noopener" class="result-card" data-name={gym.name.toLowerCase()} data-state={gym.state} data-suburb={gym.suburb.toLowerCase()} data-rating={gym.rating || 0} data-reviews={gym.total_ratings || 0}>
+      <a href={gym.maps_url} target="_blank" rel="noopener" class="result-card" data-name={gym.name.toLowerCase()} data-state={gym.state} data-suburb={item.suburb.toLowerCase()} data-rating={item.rating || 0} data-reviews={item.total_ratings || 0}>
         <div class="result-card-name">{gym.name}</div>
         <div class="result-card-loc">📍 {gym.address}</div>
-        {gym.rating && <div class="result-card-rating">⭐ {gym.rating} ({gym.total_ratings?.toLocaleString()} reviews)</div>}
+        {item.rating && <div class="result-card-rating">⭐ {item.rating} ({item.total_ratings?.toLocaleString()} reviews)</div>}
         <span class="result-card-state">{gym.state}</span>
       </a>
     ))}
@@ -97,7 +97,7 @@ const total = vets.length;
       <a href="${gym.maps_url}" target="_blank" rel="noopener" class="result-card">
         <div class="result-card-name">${gym.name}</div>
         <div class="result-card-loc">📍 ${gym.address}</div>
-        ${gym.rating ? `<div class="result-card-rating">⭐ ${gym.rating} (${gym.total_ratings?.toLocaleString()} reviews)</div>` : ''}
+        ${item.rating ? `<div class="result-card-rating">⭐ ${item.rating} (${item.total_ratings?.toLocaleString()} reviews)</div>` : ''}
         <span class="result-card-state">${gym.state}</span>
       </a>
     `).join('');
