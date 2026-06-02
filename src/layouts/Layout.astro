@@ -70,19 +70,58 @@ const { title, description } = Astro.props;
   <main>
     <slot />
   </main>
-  <footer class="footer">
-    <div class="footer-inner">
+ <footer class="footer">
+  <div class="footer-inner">
+    <div>
       <div class="footer-logo">
         <span style="width:6px;height:6px;background:#40916C;border-radius:50%;display:inline-block;margin-right:6px"></span>
         NearUs
       </div>
-      <ul class="footer-links">
+      <p style="font-size:0.75rem; color:#555; margin-top:0.5rem; max-width:200px; line-height:1.5;">Australia's local directory — every suburb, every state.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 0.25rem 2rem;">
+      <a href="/gyms" style="font-size:0.75rem; color:#666; text-decoration:none;">Gyms</a>
+      <a href="/restaurants" style="font-size:0.75rem; color:#666; text-decoration:none;">Restaurants</a>
+      <a href="/supermarkets" style="font-size:0.75rem; color:#666; text-decoration:none;">Supermarkets</a>
+      <a href="/camping" style="font-size:0.75rem; color:#666; text-decoration:none;">Free Camping</a>
+      <a href="/cafes" style="font-size:0.75rem; color:#666; text-decoration:none;">Cafes</a>
+      <a href="/hardware-stores" style="font-size:0.75rem; color:#666; text-decoration:none;">Hardware Stores</a>
+      <a href="/dog-parks" style="font-size:0.75rem; color:#666; text-decoration:none;">Dog Parks</a>
+      <a href="/chemists" style="font-size:0.75rem; color:#666; text-decoration:none;">Chemists</a>
+      <a href="/post-offices" style="font-size:0.75rem; color:#666; text-decoration:none;">Post Offices</a>
+      <a href="/markets" style="font-size:0.75rem; color:#666; text-decoration:none;">Markets</a>
+      <a href="/petrol-stations" style="font-size:0.75rem; color:#666; text-decoration:none;">Petrol Stations</a>
+      <a href="/banks" style="font-size:0.75rem; color:#666; text-decoration:none;">Banks</a>
+      <a href="/beaches" style="font-size:0.75rem; color:#666; text-decoration:none;">Beaches</a>
+      <a href="/medical-centres" style="font-size:0.75rem; color:#666; text-decoration:none;">Medical Centres</a>
+      <a href="/bakeries" style="font-size:0.75rem; color:#666; text-decoration:none;">Bakeries</a>
+      <a href="/parks" style="font-size:0.75rem; color:#666; text-decoration:none;">Parks</a>
+      <a href="/dentists" style="font-size:0.75rem; color:#666; text-decoration:none;">Dentists</a>
+      <a href="/hairdressers" style="font-size:0.75rem; color:#666; text-decoration:none;">Hairdressers</a>
+      <a href="/pools" style="font-size:0.75rem; color:#666; text-decoration:none;">Swimming Pools</a>
+      <a href="/vets" style="font-size:0.75rem; color:#666; text-decoration:none;">Vets</a>
+      <a href="/mechanics" style="font-size:0.75rem; color:#666; text-decoration:none;">Mechanics</a>
+      <a href="/skate-parks" style="font-size:0.75rem; color:#666; text-decoration:none;">Skate Parks</a>
+      <a href="/childcare" style="font-size:0.75rem; color:#666; text-decoration:none;">Childcare</a>
+      <a href="/car-washes" style="font-size:0.75rem; color:#666; text-decoration:none;">Car Washes</a>
+      <a href="/playgrounds" style="font-size:0.75rem; color:#666; text-decoration:none;">Playgrounds</a>
+      <a href="/ev-charging" style="font-size:0.75rem; color:#666; text-decoration:none;">EV Charging</a>
+      <a href="/bottle-shops" style="font-size:0.75rem; color:#666; text-decoration:none;">Bottle Shops</a>
+      <a href="/tennis-courts" style="font-size:0.75rem; color:#666; text-decoration:none;">Tennis Courts</a>
+      <a href="/libraries" style="font-size:0.75rem; color:#666; text-decoration:none;">Libraries</a>
+      <a href="/petshops" style="font-size:0.75rem; color:#666; text-decoration:none;">Pet Shops</a>
+    </div>
+
+    <div>
+      <ul class="footer-links" style="flex-direction:column; gap:0.5rem;">
         <li><a href="/about">About</a></li>
         <li><a href="/privacy">Privacy</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
-      <p class="footer-copy">© 2025 NearUs · Australia's Local Directory</p>
+      <p class="footer-copy" style="margin-top:1rem;">© 2025 NearUs</p>
     </div>
-  </footer>
+  </div>
+</footer>
 </body>
 </html>
