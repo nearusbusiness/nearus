@@ -1,0 +1,146 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import pizzaData from '../../data/pizza.json';
+
+export function getStaticPaths() {
+  const states = [...new Set(pizzaData.map((g: any) => g.state))];
+  return states.map(state => ({
+    params: { state: (state as string).toLowerCase() },
+    props: { state }
+  }));
+}
+
+const { state } = Astro.props;
+const pizza = pizzaData.filter((g: any) => g.state === state);
+const stateNames: Record<string, string> = {
+  NSW: 'New South Wales', VIC: 'Victoria', QLD: 'Queensland',
+  WA: 'Western Australia', SA: 'South Australia', TAS: 'Tasmania',
+  ACT: 'Australian Capital Territory', NT: 'Northern Territory'
+};
+const stateName = stateNames[state] || state;
+---
+
+<Layout title={`Pizza Near Me in ${stateName}`} description={`Find ${pizza.length} Find pizza restaurants and delivery near you across every state in Australia. in ${stateName}. Search by suburb.`}>
+
+  <div class="dir-page-hero">
+    <div class="container">
+      <p style="color:#40916C; font-size:0.85rem; margin-bottom:0.5rem;">
+        <a href="/pizza" style="color:#40916C;">← All Gyms</a>
+      </p>
+      <h1>🏋️ Pizza Near Me in {stateName}</h1>
+      <p>{pizza.length.toLocaleString()} Find pizza restaurants and delivery near you across every state in Australia. across {stateName}</p>
+    </div>
+  </div>
+
+  <div class="dir-search">
+    <input type="text" id="search-input" placeholder="Search by name or suburb..." />
+    <select id="sort-filter">
+      <option value="rating">Top Rated</option>
+      <option value="name">A–Z</option>
+      <option value="reviews">Most Reviews</option>
+    </select>
+  </div>
+
+  <div class="results-count" id="results-count">
+    Showing {Math.min(48, pizza.length)} of {pizza.length.toLocaleString()} gyms
+  </div>
+
+  <div class="results-grid" id="results-grid">
+    {pizza.slice(0, 48).map((item: any) => (
+      <a href={item.maps_url} target="_blank" rel="noopener" class="result-card" data-name={item.name.toLowerCase()} data-suburb={item.suburb.toLowerCase()} data-rating={item.rating || 0} data-reviews={item.total_ratings || 0}>
+        <div class="result-card-name">{item.name}</div>
+        <div class="result-card-loc">📍 {item.address}</div>
+        {item.rating && <div class="result-card-rating">⭐ {item.rating} ({item.total_ratings?.toLocaleString()} reviews)</div>}
+        <span class="result-card-state">{gym.suburb}</span>
+      </a>
+    ))}
+  </div>
+
+  <div style="text-align:center; padding: 2rem;">
+    <button class="load-more-btn" id="load-more">Load More</button>
+  </div>
+
+  <div class="ad-slot" style="max-width:1100px; margin: 0 auto 2rem;">Google AdSense</div>
+
+</Layout>
+
+<style>
+  .result-card-rating { font-size: 0.78rem; color: var(--mid); }
+  .load-more-btn {
+    background: var(--green); color: white; border: none;
+    padding: 0.75rem 2rem; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    font-weight: 600; cursor: pointer; transition: background 0.2s;
+  }
+  .load-more-btn:hover { background: var(--green-light); }
+</style>
+<script>
+  let allData = [];
+  let filtered = [];
+  let shown = 48;
+
+  function renderCards() {
+    const grid = document.getElementById('results-grid');
+    const count = document.getElementById('results-count');
+    if (!grid) return;
+    const cards = filtered.slice(0, shown);
+    if (count) count.textContent = 'Showing ' + Math.min(shown, filtered.length).toLocaleString() + ' of ' + filtered.length.toLocaleString() + ' listings';
+    grid.innerHTML = cards.map(item => '<a href="' + item.maps_url + '" target="_blank" rel="noopener" class="result-card">' +
+      '<div class="result-card-name">' + item.name + '</div>' +
+      '<div class="result-card-loc">📍 ' + item.address + '</div>' +
+      (item.rating ? '<div class="result-card-rating">⭐ ' + item.rating + ' (' + (item.total_ratings || 0).toLocaleString() + ' reviews)</div>' : '') +
+      '<span class="result-card-state">' + item.state + '</span>' +
+      '</a>').join('');
+  }
+
+  function applyFilters() {
+    const search = (document.getElementById('search-input')?.value || '').toLowerCase();
+    const state = document.getElementById('state-filter')?.value || '';
+    const suburb = document.getElementById('suburb-filter')?.value || '';
+    const sort = document.getElementById('sort-filter')?.value || 'rating';
+
+    filtered = allData.filter(g => {
+      const matchSearch = !search || g.name.toLowerCase().includes(search) || g.suburb.toLowerCase().includes(search) || (g.address || '').toLowerCase().includes(search);
+      const matchState = !state || g.state === state;
+      const matchSuburb = !suburb || g.suburb === suburb;
+      return matchSearch && matchState && matchSuburb;
+    });
+
+    if (sort === 'rating') filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    if (sort === 'name') filtered.sort((a, b) => a.name.localeCompare(b.name));
+    if (sort === 'reviews') filtered.sort((a, b) => (b.total_ratings || 0) - (a.total_ratings || 0));
+
+    shown = 48;
+    renderCards();
+  }
+
+  document.getElementById('search-input')?.addEventListener('input', applyFilters);
+  document.getElementById('state-filter')?.addEventListener('change', () => {
+    const state = document.getElementById('state-filter')?.value || '';
+    const suburbEl = document.getElementById('suburb-filter');
+    if (suburbEl) {
+      const suburbs = [...new Set(allData.filter(g => !state || g.state === state).map(g => g.suburb).filter(Boolean))].sort();
+      suburbEl.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s => '<option value="' + s + '">' + s + '</option>').join('');
+    }
+    applyFilters();
+  });
+  document.getElementById('suburb-filter')?.addEventListener('change', applyFilters);
+  document.getElementById('sort-filter')?.addEventListener('change', applyFilters);
+  document.getElementById('load-more')?.addEventListener('click', () => { shown += 48; renderCards(); });
+
+  window.addEventListener('load', async () => {
+    try {
+      const res = await fetch('/pizza-data.json');
+      allData = await res.json();
+      filtered = [...allData];
+      const suburbEl = document.getElementById('suburb-filter');
+      if (suburbEl) {
+        const suburbs = [...new Set(allData.map(g => g.suburb).filter(Boolean))].sort();
+        suburbEl.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s => '<option value="' + s + '">' + s + '</option>').join('');
+      }
+      applyFilters();
+    } catch(e) {
+      console.error('Failed to load data', e);
+    }
+  });
+</script>
