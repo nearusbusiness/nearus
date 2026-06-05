@@ -30,6 +30,16 @@ import hairdressersData from '../data/hairdressers.json';
 import carWashesData from '../data/car-washes.json';
 import mechanicsData from '../data/mechanics.json';
 import bottleShopsData from '../data/bottle-shops.json';
+import optometristsData from '../data/optometrists.json';
+import physiotherapyData from '../data/physiotherapy.json';
+import fastFoodData from '../data/fast-food.json';
+import pizzaData from '../data/pizza.json';
+import chineseData from '../data/chinese-restaurants.json';
+import indianData from '../data/indian-restaurants.json';
+import sushiData from '../data/sushi.json';
+import hotelsData from '../data/hotels.json';
+import realEstateData from '../data/real-estate.json';
+import gyms24hrData from '../data/gyms-24hr.json';
 
 const gymCount = gymsData.length;
 const campingCount = campingData.length;
@@ -61,8 +71,18 @@ const hairdressersCount = hairdressersData.length;
 const carWashesCount = carWashesData.length;
 const mechanicsCount = mechanicsData.length;
 const bottleShopsCount = bottleShopsData.length;
+const optometristsCount = optometristsData.length;
+const physiotherapyCount = physiotherapyData.length;
+const fastFoodCount = fastFoodData.length;
+const pizzaCount = pizzaData.length;
+const chineseCount = chineseData.length;
+const indianCount = indianData.length;
+const sushiCount = sushiData.length;
+const hotelsCount = hotelsData.length;
+const realEstateCount = realEstateData.length;
+const gyms24hrCount = gyms24hrData.length;
 
-const totalCount = gymCount + campingCount + dogParksCount + marketsCount + poolsCount + skateParksCount + playgroundsCount + tennisCount + evCount + librariesCount + restaurantsCount + cafesCount + chemistsCount + petrolCount + parksCount + beachesCount + medicalCount + dentistsCount + vetsCount + childcareCount + supermarketsCount + hardwareCount + postOfficesCount + banksCount + petshopsCount + bakeriesCount + hairdressersCount + carWashesCount + mechanicsCount + bottleShopsCount;
+const totalCount = gymCount + campingCount + dogParksCount + marketsCount + poolsCount + skateParksCount + playgroundsCount + tennisCount + evCount + librariesCount + restaurantsCount + cafesCount + chemistsCount + petrolCount + parksCount + beachesCount + medicalCount + dentistsCount + vetsCount + childcareCount + supermarketsCount + hardwareCount + postOfficesCount + banksCount + petshopsCount + bakeriesCount + hairdressersCount + carWashesCount + mechanicsCount + bottleShopsCount + optometristsCount + physiotherapyCount + fastFoodCount + pizzaCount + chineseCount + indianCount + sushiCount + hotelsCount + realEstateCount + gyms24hrCount;
 
 const states = ['NSW','VIC','QLD','WA','SA','TAS','ACT','NT'];
 
@@ -97,6 +117,16 @@ const stateCounts = {
   carWashes: Object.fromEntries(states.map(s => [s, (carWashesData as any[]).filter(g => g.state === s).length])),
   mechanics: Object.fromEntries(states.map(s => [s, (mechanicsData as any[]).filter(g => g.state === s).length])),
   bottleShops: Object.fromEntries(states.map(s => [s, (bottleShopsData as any[]).filter(g => g.state === s).length])),
+  optometrists: Object.fromEntries(states.map(s => [s, (optometristsData as any[]).filter(g => g.state === s).length])),
+  physiotherapy: Object.fromEntries(states.map(s => [s, (physiotherapyData as any[]).filter(g => g.state === s).length])),
+  fastFood: Object.fromEntries(states.map(s => [s, (fastFoodData as any[]).filter(g => g.state === s).length])),
+  pizza: Object.fromEntries(states.map(s => [s, (pizzaData as any[]).filter(g => g.state === s).length])),
+  chinese: Object.fromEntries(states.map(s => [s, (chineseData as any[]).filter(g => g.state === s).length])),
+  indian: Object.fromEntries(states.map(s => [s, (indianData as any[]).filter(g => g.state === s).length])),
+  sushi: Object.fromEntries(states.map(s => [s, (sushiData as any[]).filter(g => g.state === s).length])),
+  hotels: Object.fromEntries(states.map(s => [s, (hotelsData as any[]).filter(g => g.state === s).length])),
+  realEstate: Object.fromEntries(states.map(s => [s, (realEstateData as any[]).filter(g => g.state === s).length])),
+  gyms24hr: Object.fromEntries(states.map(s => [s, (gyms24hrData as any[]).filter(g => g.state === s).length])),
 }
 ---
 
@@ -118,7 +148,7 @@ const stateCounts = {
         <div class="hero-stat-label">Listings</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-num">30</div>
+        <div class="hero-stat-num">40</div>
         <div class="hero-stat-label">Directories</div>
       </div>
       <div class="hero-stat">
@@ -450,6 +480,106 @@ const stateCounts = {
           </div>
         </a>
 
+        <a href="/optometrists" class="dir-card" data-keywords="optometrist eye clinic glasses vision test">
+          <div class="dir-card-icon">👓</div>
+          <div class="dir-card-name">Optometrists</div>
+          <div class="dir-card-desc">Find optometrists and eye clinics near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="optometrists-count">{optometristsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/physiotherapy" class="dir-card" data-keywords="physio physiotherapy sports injury rehabilitation">
+          <div class="dir-card-icon">🦴</div>
+          <div class="dir-card-name">Physiotherapy</div>
+          <div class="dir-card-desc">Find physiotherapists and physio clinics near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="physio-count">{physiotherapyCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/fast-food" class="dir-card" data-keywords="fast food takeaway mcdonalds kfc hungry jacks drive through">
+          <div class="dir-card-icon">🍔</div>
+          <div class="dir-card-name">Fast Food</div>
+          <div class="dir-card-desc">Find fast food and takeaway near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="fastfood-count">{fastFoodCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/pizza" class="dir-card" data-keywords="pizza delivery dominos pizza hut restaurant">
+          <div class="dir-card-icon">🍕</div>
+          <div class="dir-card-name">Pizza</div>
+          <div class="dir-card-desc">Find pizza restaurants and delivery near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="pizza-count">{pizzaCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/chinese-restaurants" class="dir-card" data-keywords="chinese restaurant yum cha dim sum asian food">
+          <div class="dir-card-icon">🥢</div>
+          <div class="dir-card-name">Chinese Restaurants</div>
+          <div class="dir-card-desc">Find chinese restaurants and yum cha near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="chinese-count">{chineseCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/indian-restaurants" class="dir-card" data-keywords="indian restaurant curry butter chicken naan">
+          <div class="dir-card-icon">🍛</div>
+          <div class="dir-card-name">Indian Restaurants</div>
+          <div class="dir-card-desc">Find indian restaurants near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="indian-count">{indianCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/sushi" class="dir-card" data-keywords="sushi japanese restaurant ramen udon sashimi">
+          <div class="dir-card-icon">🍱</div>
+          <div class="dir-card-name">Sushi</div>
+          <div class="dir-card-desc">Find sushi and japanese restaurants near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="sushi-count">{sushiCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/hotels" class="dir-card" data-keywords="hotel motel accommodation stay room booking">
+          <div class="dir-card-icon">🏨</div>
+          <div class="dir-card-name">Hotels</div>
+          <div class="dir-card-desc">Find hotels and accommodation near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="hotels-count">{hotelsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/real-estate" class="dir-card" data-keywords="real estate agent property buy sell rent house">
+          <div class="dir-card-icon">🏡</div>
+          <div class="dir-card-name">Real Estate</div>
+          <div class="dir-card-desc">Find real estate agents near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="realestate-count">{realEstateCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/gyms-24hr" class="dir-card" data-keywords="24 hour gym anytime fitness snap fitness late night">
+          <div class="dir-card-icon">🌙</div>
+          <div class="dir-card-name">24 Hour Gyms</div>
+          <div class="dir-card-desc">Find 24 hour gyms near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="gyms24hr-count">{gyms24hrCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
       </div>
     </section>
 
@@ -525,7 +655,7 @@ const stateCounts = {
 
 </Layout>
 
-<script define:vars={{ stateCounts, gymCount, campingCount, dogParksCount, marketsCount, poolsCount, skateParksCount, playgroundsCount, tennisCount, evCount, librariesCount, restaurantsCount, cafesCount, chemistsCount, petrolCount, parksCount, beachesCount, medicalCount, dentistsCount, vetsCount, childcareCount, supermarketsCount, hardwareCount, postOfficesCount, banksCount, petshopsCount, bakeriesCount, hairdressersCount, carWashesCount, mechanicsCount, bottleShopsCount, totalCount }}>
+<script define:vars={{ stateCounts, gymCount, campingCount, dogParksCount, marketsCount, poolsCount, skateParksCount, playgroundsCount, tennisCount, evCount, librariesCount, restaurantsCount, cafesCount, chemistsCount, petrolCount, parksCount, beachesCount, medicalCount, dentistsCount, vetsCount, childcareCount, supermarketsCount, hardwareCount, postOfficesCount, banksCount, petshopsCount, bakeriesCount, hairdressersCount, carWashesCount, mechanicsCount, bottleShopsCount, optometristsCount, physiotherapyCount, fastFoodCount, pizzaCount, chineseCount, indianCount, sushiCount, hotelsCount, realEstateCount, gyms24hrCount, totalCount }}>
 
   const allCounts = {
     gyms: gymCount, camping: campingCount, dogParks: dogParksCount,
@@ -537,7 +667,10 @@ const stateCounts = {
     vets: vetsCount, childcare: childcareCount, supermarkets: supermarketsCount,
     hardware: hardwareCount, postOffices: postOfficesCount, banks: banksCount,
     petshops: petshopsCount, bakeries: bakeriesCount, hairdressers: hairdressersCount,
-    carWashes: carWashesCount, mechanics: mechanicsCount, bottleShops: bottleShopsCount
+    carWashes: carWashesCount, mechanics: mechanicsCount, bottleShops: bottleShopsCount,
+    optometrists: optometristsCount, physiotherapy: physiotherapyCount, fastFood: fastFoodCount,
+    pizza: pizzaCount, chinese: chineseCount, indian: indianCount, sushi: sushiCount,
+    hotels: hotelsCount, realEstate: realEstateCount, gyms24hr: gyms24hrCount
   };
 
   const countIds = [
@@ -550,7 +683,11 @@ const stateCounts = {
     ['vets-count', 'vets'], ['childcare-count', 'childcare'], ['supermarkets-count', 'supermarkets'],
     ['hardware-count', 'hardware'], ['postoffices-count', 'postOffices'], ['banks-count', 'banks'],
     ['petshops-count', 'petshops'], ['bakeries-count', 'bakeries'], ['hairdressers-count', 'hairdressers'],
-    ['carwashes-count', 'carWashes'], ['mechanics-count', 'mechanics'], ['bottleshops-count', 'bottleShops']
+    ['carwashes-count', 'carWashes'], ['mechanics-count', 'mechanics'], ['bottleshops-count', 'bottleShops'],
+    ['optometrists-count', 'optometrists'], ['physio-count', 'physiotherapy'], ['fastfood-count', 'fastFood'],
+    ['pizza-count', 'pizza'], ['chinese-count', 'chinese'], ['indian-count', 'indian'],
+    ['sushi-count', 'sushi'], ['hotels-count', 'hotels'], ['realestate-count', 'realEstate'],
+    ['gyms24hr-count', 'gyms24hr']
   ];
 
   function filterState(state, el) {
