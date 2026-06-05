@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import gyms from '../data/chinese-restaurants.json';
 
 const states = ['NSW', 'VIC', 'QLD', 'WA', 'SA', 'TAS', 'ACT', 'NT'];
-const total = chineserestaurants.length;
+const total = chineseData.length;
 ---
 
 <Layout title="Chinese Restaurants Near Me" description="Find Find chinese restaurants and yum cha near you across every state in Australia. near you across every state in Australia.">
@@ -35,7 +35,7 @@ const total = chineserestaurants.length;
   </div>
 
   <div class="results-grid" id="results-grid">
-    {chineserestaurants.slice(0, 48).map(item => (
+    {chineseData.slice(0, 48).map(item => (
       <a href={item.maps_url} target="_blank" rel="noopener" class="result-card" data-name={item.name.toLowerCase()} data-state={item.state} data-suburb={item.suburb.toLowerCase()} data-rating={item.rating || 0} data-reviews={item.total_ratings || 0}>
         <div class="result-card-name">{item.name}</div>
         <div class="result-card-loc">📍 {item.address}</div>
