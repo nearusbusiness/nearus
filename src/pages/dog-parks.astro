@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import dogparks from '../data/dog-parks.json';
+import dogParksData from '../data/dog-parks.json';
 
 const states = ['NSW', 'VIC', 'QLD', 'WA', 'SA', 'TAS', 'ACT', 'NT'];
-const total = dogparks.length;
+const total = dogParksData.length;
 ---
 
 <Layout title="Dog Parks Near Me" description="Find off leash dog parks and dog beaches near you across every state in Australia.">
@@ -35,7 +35,7 @@ const total = dogparks.length;
   </div>
 
   <div class="results-grid" id="results-grid">
-    {dogparks.slice(0, 48).map(item => (
+    {dogParksData.slice(0, 48).map(item => (
       <a href={item.maps_url} target="_blank" rel="noopener" class="result-card" data-name={item.name.toLowerCase()} data-state={item.state} data-suburb={item.suburb.toLowerCase()} data-rating={item.rating || 0} data-reviews={item.total_ratings || 0}>
         <div class="result-card-name">{item.name}</div>
         <div class="result-card-loc">📍 {item.address}</div>
