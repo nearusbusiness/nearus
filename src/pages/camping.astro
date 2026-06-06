@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import camping from '../data/camping.json';
 
 const states = ['NSW', 'VIC', 'QLD', 'WA', 'SA', 'TAS', 'ACT', 'NT'];
-const total = gyms.length;
+const total = camping.length;
 ---
 
 <Layout title="Free Camping Near Me" description="Find free campsites and caravan parks near you across every state in Australia.">
@@ -35,7 +35,7 @@ const total = gyms.length;
   </div>
 
   <div class="results-grid" id="results-grid">
-    {gyms.slice(0, 48).map(gym => (
+    {camping.slice(0, 48).map(gym => (
       <a href={gym.maps_url} target="_blank" rel="noopener" class="result-card" data-name={gym.name.toLowerCase()} data-state={gym.state} data-suburb={gym.suburb.toLowerCase()} data-rating={gym.rating || 0} data-reviews={gym.total_ratings || 0}>
         <div class="result-card-name">{gym.name}</div>
         <div class="result-card-loc">📍 {gym.address}</div>
