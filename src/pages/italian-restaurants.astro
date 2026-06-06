@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+import italian_restaurants from '../data/italian-restaurants.json';
+
+const states = ['NSW', 'VIC', 'QLD', 'WA', 'SA', 'TAS', 'ACT', 'NT'];
+const total = italian_restaurants.length;
+---
+
+<Layout title="Italian Restaurants Near Me" description="Find italian restaurants and pasta near you across every state in Australia.">
+
+  <div class="dir-page-hero">
+    <div class="container">
+      <h1>🍝 Italian Restaurants Near Me</h1>
+      <p class="hero-sub-location">Across every suburb, every state in Australia</p>
+      <p>Find {total.toLocaleString()} listings across every state in Australia.</p>
+    </div>
+  </div>
+
+  <div class="dir-search">
+    <input type="text" id="search-input" placeholder="Search by name or suburb..." />
+    <select id="state-filter">
+      <option value="">All States</option>
+      {states.map(s => <option value={s}>{s}</option>)}
+    </select>
+    <select id="suburb-filter"><option value="">All Suburbs</option></select>
+    <select id="sort-filter">
+      <option value="rating">Top Rated</option>
+      <option value="name">A–Z</option>
+      <option value="reviews">Most Reviews</option>
+    </select>
+  </div>
+
+  <div class="results-count" id="results-count">
+    Showing {total.toLocaleString()} listings
+  </div>
+
+  <div class="results-grid" id="results-grid">
+    {italian_restaurants.slice(0, 48).map(item => (
+      <a href={item.maps_url} target="_blank" rel="noopener" class="result-card" data-name={item.name.toLowerCase()} data-state={item.state} data-suburb={item.suburb.toLowerCase()} data-rating={item.rating || 0} data-reviews={item.reviews || 0}>
+        <div class="result-card-name">{item.name}</div>
+        <div class="result-card-loc">📍 {item.address}</div>
+        {item.rating && <div class="result-card-rating">⭐ {item.rating} ({item.reviews?.toLocaleString()} reviews)</div>}
+        <span class="result-card-state">{item.state}</span>
+      </a>
+    ))}
+  </div>
+
+  <div style="text-align:center; padding: 2rem;">
+    <button class="load-more-btn" id="load-more">Load More</button>
+  </div>
+
+  <div class="ad-slot" style="max-width:1100px; margin: 0 auto 2rem;">Google AdSense</div>
+
+</Layout>
+
+<style>
+  .result-card-rating { font-size: 0.78rem; color: var(--mid); }
+  .load-more-btn { background: var(--green); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .load-more-btn:hover { background: var(--green-light); }
+</style>
+
+<script>
+  let allData = [];
+  let filtered = [];
+  let shown = 48;
+
+  function renderCards() {
+    const grid = document.getElementById('results-grid');
+    const count = document.getElementById('results-count');
+    if (!grid) return;
+    const cards = filtered.slice(0, shown);
+    if (count) count.textContent = 'Showing ' + Math.min(shown, filtered.length).toLocaleString() + ' of ' + filtered.length.toLocaleString() + ' listings';
+    grid.innerHTML = cards.map(item => '<a href="' + item.maps_url + '" target="_blank" rel="noopener" class="result-card">' +
+      '<div class="result-card-name">' + item.name + '</div>' +
+      '<div class="result-card-loc">📍 ' + item.address + '</div>' +
+      (item.rating ? '<div class="result-card-rating">⭐ ' + item.rating + ' (' + (item.reviews || 0).toLocaleString() + ' reviews)</div>' : '') +
+      '<span class="result-card-state">' + item.state + '</span>' +
+      '</a>').join('');
+  }
+
+  function applyFilters() {
+    const search = (document.getElementById('search-input')?.value || '').toLowerCase();
+    const state = document.getElementById('state-filter')?.value || '';
+    const suburb = document.getElementById('suburb-filter')?.value || '';
+    const sort = document.getElementById('sort-filter')?.value || 'rating';
+
+    filtered = allData.filter(g => {
+      const matchSearch = !search || g.name.toLowerCase().includes(search) || g.suburb.toLowerCase().includes(search) || (g.address || '').toLowerCase().includes(search);
+      const matchState = !state || g.state === state;
+      const matchSuburb = !suburb || g.suburb === suburb;
+      return matchSearch && matchState && matchSuburb;
+    });
+
+    if (sort === 'rating') filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    if (sort === 'name') filtered.sort((a, b) => a.name.localeCompare(b.name));
+    if (sort === 'reviews') filtered.sort((a, b) => (b.reviews || 0) - (a.reviews || 0));
+
+    shown = 48;
+    renderCards();
+  }
+
+  document.getElementById('search-input')?.addEventListener('input', applyFilters);
+  document.getElementById('state-filter')?.addEventListener('change', () => {
+    const state = document.getElementById('state-filter')?.value || '';
+    const suburbEl = document.getElementById('suburb-filter');
+    if (suburbEl) {
+      const suburbs = [...new Set(allData.filter(g => !state || g.state === state).map(g => g.suburb).filter(Boolean))].sort();
+      suburbEl.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s => '<option value="' + s + '">' + s + '</option>').join('');
+    }
+    applyFilters();
+  });
+  document.getElementById('suburb-filter')?.addEventListener('change', applyFilters);
+  document.getElementById('sort-filter')?.addEventListener('change', applyFilters);
+  document.getElementById('load-more')?.addEventListener('click', () => { shown += 48; renderCards(); });
+
+  window.addEventListener('load', async () => {
+    try {
+      const res = await fetch('/italian-restaurants-data.json');
+      allData = await res.json();
+      filtered = [...allData];
+      const suburbEl = document.getElementById('suburb-filter');
+      if (suburbEl) {
+        const suburbs = [...new Set(allData.map(g => g.suburb).filter(Boolean))].sort();
+        suburbEl.innerHTML = '<option value="">All Suburbs</option>' + suburbs.map(s => '<option value="' + s + '">' + s + '</option>').join('');
+      }
+      applyFilters();
+    } catch(e) {
+      console.error('Failed to load data', e);
+    }
+  });
+</script>
