@@ -40,6 +40,36 @@ import sushiData from '../data/sushi.json';
 import hotelsData from '../data/hotels.json';
 import realEstateData from '../data/real-estate.json';
 import gyms24hrData from '../data/gyms-24hr.json';
+import breakfastCafesData from '../data/breakfast-cafes.json';
+import breweriesData from '../data/breweries.json';
+import dessertShopsData from '../data/dessert-shops.json';
+import brunchSpotsData from '../data/brunch-spots.json';
+import wineriesData from '../data/wineries.json';
+import juiceBarsData from '../data/juice-bars.json';
+import shoppingCentresData from '../data/shopping-centres.json';
+import opShopsData from '../data/op-shops.json';
+import giftShopsData from '../data/gift-shops.json';
+import thingsToDoData from '../data/things-to-do.json';
+import escapeRoomsData from '../data/escape-rooms.json';
+import bowlingAlleysData from '../data/bowling-alleys.json';
+import miniGolfData from '../data/mini-golf.json';
+import cinemasData from '../data/cinemas.json';
+import laserTagData from '../data/laser-tag.json';
+import yogaStudiosData from '../data/yoga-studios.json';
+import pilatesStudiosData from '../data/pilates-studios.json';
+import massageTherapistsData from '../data/massage-therapists.json';
+import naturopathsData from '../data/naturopaths.json';
+import electriciansData from '../data/electricians.json';
+import plumbersData from '../data/plumbers.json';
+import cleanersData from '../data/cleaners.json';
+import locksmithsData from '../data/locksmiths.json';
+import tyreShopsData from '../data/tyre-shops.json';
+import swimmingLessonsData from '../data/swimming-lessons.json';
+import kidsActivitiesData from '../data/kids-activities.json';
+import agedCareData from '../data/aged-care.json';
+import butchersData from '../data/butchers.json';
+import floristsData from '../data/florists.json';
+import accountantsData from '../data/accountants.json';
 
 const gymCount = gymsData.length;
 const campingCount = campingData.length;
@@ -81,8 +111,38 @@ const sushiCount = sushiData.length;
 const hotelsCount = hotelsData.length;
 const realEstateCount = realEstateData.length;
 const gyms24hrCount = gyms24hrData.length;
+const breakfastCafesCount = breakfastCafesData.length;
+const breweriesCount = breweriesData.length;
+const dessertShopsCount = dessertShopsData.length;
+const brunchSpotsCount = brunchSpotsData.length;
+const wineriesCount = wineriesData.length;
+const juiceBarsCount = juiceBarsData.length;
+const shoppingCentresCount = shoppingCentresData.length;
+const opShopsCount = opShopsData.length;
+const giftShopsCount = giftShopsData.length;
+const thingsToDoCount = thingsToDoData.length;
+const escapeRoomsCount = escapeRoomsData.length;
+const bowlingAlleysCount = bowlingAlleysData.length;
+const miniGolfCount = miniGolfData.length;
+const cinemasCount = cinemasData.length;
+const laserTagCount = laserTagData.length;
+const yogaStudiosCount = yogaStudiosData.length;
+const pilatesStudiosCount = pilatesStudiosData.length;
+const massageTherapistsCount = massageTherapistsData.length;
+const naturopathsCount = naturopathsData.length;
+const electriciansCount = electriciansData.length;
+const plumbersCount = plumbersData.length;
+const cleanersCount = cleanersData.length;
+const locksmithsCount = locksmithsData.length;
+const tyreShopsCount = tyreShopsData.length;
+const swimmingLessonsCount = swimmingLessonsData.length;
+const kidsActivitiesCount = kidsActivitiesData.length;
+const agedCareCount = agedCareData.length;
+const butchersCount = butchersData.length;
+const floristsCount = floristsData.length;
+const accountantsCount = accountantsData.length;
 
-const totalCount = gymCount + campingCount + dogParksCount + marketsCount + poolsCount + skateParksCount + playgroundsCount + tennisCount + evCount + librariesCount + restaurantsCount + cafesCount + chemistsCount + petrolCount + parksCount + beachesCount + medicalCount + dentistsCount + vetsCount + childcareCount + supermarketsCount + hardwareCount + postOfficesCount + banksCount + petshopsCount + bakeriesCount + hairdressersCount + carWashesCount + mechanicsCount + bottleShopsCount + optometristsCount + physiotherapyCount + fastFoodCount + pizzaCount + chineseCount + indianCount + sushiCount + hotelsCount + realEstateCount + gyms24hrCount;
+const totalCount = gymCount + campingCount + dogParksCount + marketsCount + poolsCount + skateParksCount + playgroundsCount + tennisCount + evCount + librariesCount + restaurantsCount + cafesCount + chemistsCount + petrolCount + parksCount + beachesCount + medicalCount + dentistsCount + vetsCount + childcareCount + supermarketsCount + hardwareCount + postOfficesCount + banksCount + petshopsCount + bakeriesCount + hairdressersCount + carWashesCount + mechanicsCount + bottleShopsCount + optometristsCount + physiotherapyCount + fastFoodCount + pizzaCount + chineseCount + indianCount + sushiCount + hotelsCount + realEstateCount + gyms24hrCount + breakfastCafesCount + breweriesCount + dessertShopsCount + brunchSpotsCount + wineriesCount + juiceBarsCount + shoppingCentresCount + opShopsCount + giftShopsCount + thingsToDoCount + escapeRoomsCount + bowlingAlleysCount + miniGolfCount + cinemasCount + laserTagCount + yogaStudiosCount + pilatesStudiosCount + massageTherapistsCount + naturopathsCount + electriciansCount + plumbersCount + cleanersCount + locksmithsCount + tyreShopsCount + swimmingLessonsCount + kidsActivitiesCount + agedCareCount + butchersCount + floristsCount + accountantsCount;
 
 const states = ['NSW','VIC','QLD','WA','SA','TAS','ACT','NT'];
 
@@ -127,6 +187,36 @@ const stateCounts = {
   hotels: Object.fromEntries(states.map(s => [s, (hotelsData as any[]).filter(g => g.state === s).length])),
   realEstate: Object.fromEntries(states.map(s => [s, (realEstateData as any[]).filter(g => g.state === s).length])),
   gyms24hr: Object.fromEntries(states.map(s => [s, (gyms24hrData as any[]).filter(g => g.state === s).length])),
+  breakfastCafes: Object.fromEntries(states.map(s => [s, (breakfastCafesData as any[]).filter(g => g.state === s).length])),
+  breweries: Object.fromEntries(states.map(s => [s, (breweriesData as any[]).filter(g => g.state === s).length])),
+  dessertShops: Object.fromEntries(states.map(s => [s, (dessertShopsData as any[]).filter(g => g.state === s).length])),
+  brunchSpots: Object.fromEntries(states.map(s => [s, (brunchSpotsData as any[]).filter(g => g.state === s).length])),
+  wineries: Object.fromEntries(states.map(s => [s, (wineriesData as any[]).filter(g => g.state === s).length])),
+  juiceBars: Object.fromEntries(states.map(s => [s, (juiceBarsData as any[]).filter(g => g.state === s).length])),
+  shoppingCentres: Object.fromEntries(states.map(s => [s, (shoppingCentresData as any[]).filter(g => g.state === s).length])),
+  opShops: Object.fromEntries(states.map(s => [s, (opShopsData as any[]).filter(g => g.state === s).length])),
+  giftShops: Object.fromEntries(states.map(s => [s, (giftShopsData as any[]).filter(g => g.state === s).length])),
+  thingsToDo: Object.fromEntries(states.map(s => [s, (thingsToDoData as any[]).filter(g => g.state === s).length])),
+  escapeRooms: Object.fromEntries(states.map(s => [s, (escapeRoomsData as any[]).filter(g => g.state === s).length])),
+  bowlingAlleys: Object.fromEntries(states.map(s => [s, (bowlingAlleysData as any[]).filter(g => g.state === s).length])),
+  miniGolf: Object.fromEntries(states.map(s => [s, (miniGolfData as any[]).filter(g => g.state === s).length])),
+  cinemas: Object.fromEntries(states.map(s => [s, (cinemasData as any[]).filter(g => g.state === s).length])),
+  laserTag: Object.fromEntries(states.map(s => [s, (laserTagData as any[]).filter(g => g.state === s).length])),
+  yogaStudios: Object.fromEntries(states.map(s => [s, (yogaStudiosData as any[]).filter(g => g.state === s).length])),
+  pilatesStudios: Object.fromEntries(states.map(s => [s, (pilatesStudiosData as any[]).filter(g => g.state === s).length])),
+  massageTherapists: Object.fromEntries(states.map(s => [s, (massageTherapistsData as any[]).filter(g => g.state === s).length])),
+  naturopaths: Object.fromEntries(states.map(s => [s, (naturopathsData as any[]).filter(g => g.state === s).length])),
+  electricians: Object.fromEntries(states.map(s => [s, (electriciansData as any[]).filter(g => g.state === s).length])),
+  plumbers: Object.fromEntries(states.map(s => [s, (plumbersData as any[]).filter(g => g.state === s).length])),
+  cleaners: Object.fromEntries(states.map(s => [s, (cleanersData as any[]).filter(g => g.state === s).length])),
+  locksmiths: Object.fromEntries(states.map(s => [s, (locksmithsData as any[]).filter(g => g.state === s).length])),
+  tyreShops: Object.fromEntries(states.map(s => [s, (tyreShopsData as any[]).filter(g => g.state === s).length])),
+  swimmingLessons: Object.fromEntries(states.map(s => [s, (swimmingLessonsData as any[]).filter(g => g.state === s).length])),
+  kidsActivities: Object.fromEntries(states.map(s => [s, (kidsActivitiesData as any[]).filter(g => g.state === s).length])),
+  agedCare: Object.fromEntries(states.map(s => [s, (agedCareData as any[]).filter(g => g.state === s).length])),
+  butchers: Object.fromEntries(states.map(s => [s, (butchersData as any[]).filter(g => g.state === s).length])),
+  florists: Object.fromEntries(states.map(s => [s, (floristsData as any[]).filter(g => g.state === s).length])),
+  accountants: Object.fromEntries(states.map(s => [s, (accountantsData as any[]).filter(g => g.state === s).length])),
 }
 ---
 
@@ -148,7 +238,7 @@ const stateCounts = {
         <div class="hero-stat-label">Listings</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-num">40</div>
+        <div class="hero-stat-num">70</div>
         <div class="hero-stat-label">Directories</div>
       </div>
       <div class="hero-stat">
@@ -580,6 +670,307 @@ const stateCounts = {
           </div>
         </a>
 
+
+        <a href="/breakfast-cafes" class="dir-card" data-keywords="breakfast cafe morning coffee eggs toast">
+          <div class="dir-card-icon">🍳</div>
+          <div class="dir-card-name">Breakfast Cafes</div>
+          <div class="dir-card-desc">Find the best breakfast cafes and morning spots near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="breakfast-cafes-count">{breakfastCafesCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/breweries" class="dir-card" data-keywords="brewery craft beer tap room ale lager">
+          <div class="dir-card-icon">🍺</div>
+          <div class="dir-card-name">Breweries</div>
+          <div class="dir-card-desc">Find craft breweries and tap rooms near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="breweries-count">{breweriesCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/dessert-shops" class="dir-card" data-keywords="dessert ice cream cake gelato sweets chocolate">
+          <div class="dir-card-icon">🍰</div>
+          <div class="dir-card-name">Dessert Shops</div>
+          <div class="dir-card-desc">Find dessert shops, ice cream and sweet treats near you.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="dessert-shops-count">{dessertShopsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/brunch-spots" class="dir-card" data-keywords="brunch breakfast lunch weekend eggs avocado">
+          <div class="dir-card-icon">🥞</div>
+          <div class="dir-card-name">Brunch Spots</div>
+          <div class="dir-card-desc">Find the best brunch spots near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="brunch-spots-count">{brunchSpotsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/wineries" class="dir-card" data-keywords="winery wine cellar door tasting vineyard">
+          <div class="dir-card-icon">🍷</div>
+          <div class="dir-card-name">Wineries</div>
+          <div class="dir-card-desc">Find wineries and cellar doors near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="wineries-count">{wineriesCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/juice-bars" class="dir-card" data-keywords="juice bar smoothie health fresh fruit blend">
+          <div class="dir-card-icon">🥤</div>
+          <div class="dir-card-name">Juice Bars</div>
+          <div class="dir-card-desc">Find juice bars and smoothie shops near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="juice-bars-count">{juiceBarsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/shopping-centres" class="dir-card" data-keywords="shopping centre mall retail stores shops">
+          <div class="dir-card-icon">🛍️</div>
+          <div class="dir-card-name">Shopping Centres</div>
+          <div class="dir-card-desc">Find shopping centres and malls near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="shopping-centres-count">{shoppingCentresCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/op-shops" class="dir-card" data-keywords="op shop second hand vintage thrift charity clothing">
+          <div class="dir-card-icon">♻️</div>
+          <div class="dir-card-name">Op Shops</div>
+          <div class="dir-card-desc">Find op shops and second hand stores near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="op-shops-count">{opShopsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/gift-shops" class="dir-card" data-keywords="gift shop souvenir present cards novelty homewares">
+          <div class="dir-card-icon">🎁</div>
+          <div class="dir-card-name">Gift Shops</div>
+          <div class="dir-card-desc">Find gift shops and souvenir stores near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="gift-shops-count">{giftShopsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/things-to-do" class="dir-card" data-keywords="things to do attraction activity fun weekend entertainment">
+          <div class="dir-card-icon">🎯</div>
+          <div class="dir-card-name">Things To Do</div>
+          <div class="dir-card-desc">Find attractions and things to do near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="things-to-do-count">{thingsToDoCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/escape-rooms" class="dir-card" data-keywords="escape room puzzle game adventure team activity">
+          <div class="dir-card-icon">🔐</div>
+          <div class="dir-card-name">Escape Rooms</div>
+          <div class="dir-card-desc">Find escape rooms and puzzle experiences near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="escape-rooms-count">{escapeRoomsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/bowling-alleys" class="dir-card" data-keywords="bowling alley ten pin lanes strike spare">
+          <div class="dir-card-icon">🎳</div>
+          <div class="dir-card-name">Bowling Alleys</div>
+          <div class="dir-card-desc">Find bowling alleys and ten pin bowling near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="bowling-alleys-count">{bowlingAlleysCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/mini-golf" class="dir-card" data-keywords="mini golf putt putt miniature course family fun">
+          <div class="dir-card-icon">⛳</div>
+          <div class="dir-card-name">Mini Golf</div>
+          <div class="dir-card-desc">Find mini golf courses near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="mini-golf-count">{miniGolfCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/cinemas" class="dir-card" data-keywords="cinema movie theatre film screen popcorn session">
+          <div class="dir-card-icon">🎬</div>
+          <div class="dir-card-name">Cinemas</div>
+          <div class="dir-card-desc">Find cinemas and movie theatres near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="cinemas-count">{cinemasCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/laser-tag" class="dir-card" data-keywords="laser tag game arena battle team fun activity">
+          <div class="dir-card-icon">🔫</div>
+          <div class="dir-card-name">Laser Tag</div>
+          <div class="dir-card-desc">Find laser tag venues near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="laser-tag-count">{laserTagCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/yoga-studios" class="dir-card" data-keywords="yoga studio class meditation wellness flexibility mindfulness">
+          <div class="dir-card-icon">🧘</div>
+          <div class="dir-card-name">Yoga Studios</div>
+          <div class="dir-card-desc">Find yoga studios and classes near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="yoga-studios-count">{yogaStudiosCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/pilates-studios" class="dir-card" data-keywords="pilates studio reformer class core fitness wellness">
+          <div class="dir-card-icon">🤸</div>
+          <div class="dir-card-name">Pilates Studios</div>
+          <div class="dir-card-desc">Find pilates studios and reformer classes near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="pilates-studios-count">{pilatesStudiosCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/massage-therapists" class="dir-card" data-keywords="massage therapist remedial relaxation spa body treatment">
+          <div class="dir-card-icon">💆</div>
+          <div class="dir-card-name">Massage Therapists</div>
+          <div class="dir-card-desc">Find massage therapists and day spas near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="massage-therapists-count">{massageTherapistsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/naturopaths" class="dir-card" data-keywords="naturopath natural health holistic herbal wellness">
+          <div class="dir-card-icon">🌿</div>
+          <div class="dir-card-name">Naturopaths</div>
+          <div class="dir-card-desc">Find naturopaths and natural health practitioners near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="naturopaths-count">{naturopathsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/electricians" class="dir-card" data-keywords="electrician electrical wiring power licensed trade">
+          <div class="dir-card-icon">⚡</div>
+          <div class="dir-card-name">Electricians</div>
+          <div class="dir-card-desc">Find licensed electricians near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="electricians-count">{electriciansCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/plumbers" class="dir-card" data-keywords="plumber plumbing pipes water leak drain licensed trade">
+          <div class="dir-card-icon">🔧</div>
+          <div class="dir-card-name">Plumbers</div>
+          <div class="dir-card-desc">Find licensed plumbers near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="plumbers-count">{plumbersCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/cleaners" class="dir-card" data-keywords="cleaner cleaning service house office bond end of lease">
+          <div class="dir-card-icon">🧹</div>
+          <div class="dir-card-name">Cleaners</div>
+          <div class="dir-card-desc">Find cleaning services and house cleaners near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="cleaners-count">{cleanersCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/locksmiths" class="dir-card" data-keywords="locksmith key lock car home emergency 24 hour">
+          <div class="dir-card-icon">🔑</div>
+          <div class="dir-card-name">Locksmiths</div>
+          <div class="dir-card-desc">Find locksmiths and key cutting services near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="locksmiths-count">{locksmithsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/tyre-shops" class="dir-card" data-keywords="tyre shop wheel alignment rotation puncture repair">
+          <div class="dir-card-icon">🚗</div>
+          <div class="dir-card-name">Tyre Shops</div>
+          <div class="dir-card-desc">Find tyre shops and wheel services near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="tyre-shops-count">{tyreShopsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/swimming-lessons" class="dir-card" data-keywords="swimming lessons learn to swim school aquatic kids adults">
+          <div class="dir-card-icon">🏊</div>
+          <div class="dir-card-name">Swimming Lessons</div>
+          <div class="dir-card-desc">Find swimming lessons and swim schools near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="swimming-lessons-count">{swimmingLessonsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/kids-activities" class="dir-card" data-keywords="kids activities children fun entertainment play birthday">
+          <div class="dir-card-icon">👧</div>
+          <div class="dir-card-name">Kids Activities</div>
+          <div class="dir-card-desc">Find kids activities and entertainment near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="kids-activities-count">{kidsActivitiesCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/aged-care" class="dir-card" data-keywords="aged care elderly nursing home retirement village senior">
+          <div class="dir-card-icon">🏥</div>
+          <div class="dir-card-name">Aged Care</div>
+          <div class="dir-card-desc">Find aged care facilities and services near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="aged-care-count">{agedCareCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/butchers" class="dir-card" data-keywords="butcher meat shop fresh beef lamb chicken pork sausage">
+          <div class="dir-card-icon">🥩</div>
+          <div class="dir-card-name">Butchers</div>
+          <div class="dir-card-desc">Find butchers and fresh meat shops near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="butchers-count">{butchersCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/florists" class="dir-card" data-keywords="florist flowers bouquet arrangement wedding event fresh">
+          <div class="dir-card-icon">💐</div>
+          <div class="dir-card-name">Florists</div>
+          <div class="dir-card-desc">Find florists and flower shops near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="florists-count">{floristsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="/accountants" class="dir-card" data-keywords="accountant tax agent BAS return bookkeeping financial">
+          <div class="dir-card-icon">📊</div>
+          <div class="dir-card-name">Accountants</div>
+          <div class="dir-card-desc">Find accountants and tax agents near you across Australia.</div>
+          <div class="dir-card-meta">
+            <span class="dir-card-count" id="accountants-count">{accountantsCount.toLocaleString()} listings</span>
+            <span class="dir-card-arrow">→</span>
+          </div>
+        </a>
+
       </div>
     </section>
 
@@ -655,7 +1046,7 @@ const stateCounts = {
 
 </Layout>
 
-<script define:vars={{ stateCounts, gymCount, campingCount, dogParksCount, marketsCount, poolsCount, skateParksCount, playgroundsCount, tennisCount, evCount, librariesCount, restaurantsCount, cafesCount, chemistsCount, petrolCount, parksCount, beachesCount, medicalCount, dentistsCount, vetsCount, childcareCount, supermarketsCount, hardwareCount, postOfficesCount, banksCount, petshopsCount, bakeriesCount, hairdressersCount, carWashesCount, mechanicsCount, bottleShopsCount, optometristsCount, physiotherapyCount, fastFoodCount, pizzaCount, chineseCount, indianCount, sushiCount, hotelsCount, realEstateCount, gyms24hrCount, totalCount }}>
+<script define:vars={{ stateCounts, gymCount, campingCount, dogParksCount, marketsCount, poolsCount, skateParksCount, playgroundsCount, tennisCount, evCount, librariesCount, restaurantsCount, cafesCount, chemistsCount, petrolCount, parksCount, beachesCount, medicalCount, dentistsCount, vetsCount, childcareCount, supermarketsCount, hardwareCount, postOfficesCount, banksCount, petshopsCount, bakeriesCount, hairdressersCount, carWashesCount, mechanicsCount, bottleShopsCount, optometristsCount, physiotherapyCount, fastFoodCount, pizzaCount, chineseCount, indianCount, sushiCount, hotelsCount, realEstateCount, gyms24hrCount, breakfastCafesCount, breweriesCount, dessertShopsCount, brunchSpotsCount, wineriesCount, juiceBarsCount, shoppingCentresCount, opShopsCount, giftShopsCount, thingsToDoCount, escapeRoomsCount, bowlingAlleysCount, miniGolfCount, cinemasCount, laserTagCount, yogaStudiosCount, pilatesStudiosCount, massageTherapistsCount, naturopathsCount, electriciansCount, plumbersCount, cleanersCount, locksmithsCount, tyreShopsCount, swimmingLessonsCount, kidsActivitiesCount, agedCareCount, butchersCount, floristsCount, accountantsCount, totalCount }}>
 
   const allCounts = {
     gyms: gymCount, camping: campingCount, dogParks: dogParksCount,
@@ -687,7 +1078,22 @@ const stateCounts = {
     ['optometrists-count', 'optometrists'], ['physio-count', 'physiotherapy'], ['fastfood-count', 'fastFood'],
     ['pizza-count', 'pizza'], ['chinese-count', 'chinese'], ['indian-count', 'indian'],
     ['sushi-count', 'sushi'], ['hotels-count', 'hotels'], ['realestate-count', 'realEstate'],
-    ['gyms24hr-count', 'gyms24hr']
+    ['gyms24hr-count', 'gyms24hr'],
+    ['breakfast-cafes-count', 'breakfastCafes'], ['breweries-count', 'breweries'],
+    ['dessert-shops-count', 'dessertShops'], ['brunch-spots-count', 'brunchSpots'],
+    ['wineries-count', 'wineries'], ['juice-bars-count', 'juiceBars'],
+    ['shopping-centres-count', 'shoppingCentres'], ['op-shops-count', 'opShops'],
+    ['gift-shops-count', 'giftShops'], ['things-to-do-count', 'thingsToDo'],
+    ['escape-rooms-count', 'escapeRooms'], ['bowling-alleys-count', 'bowlingAlleys'],
+    ['mini-golf-count', 'miniGolf'], ['cinemas-count', 'cinemas'],
+    ['laser-tag-count', 'laserTag'], ['yoga-studios-count', 'yogaStudios'],
+    ['pilates-studios-count', 'pilatesStudios'], ['massage-therapists-count', 'massageTherapists'],
+    ['naturopaths-count', 'naturopaths'], ['electricians-count', 'electricians'],
+    ['plumbers-count', 'plumbers'], ['cleaners-count', 'cleaners'],
+    ['locksmiths-count', 'locksmiths'], ['tyre-shops-count', 'tyreShops'],
+    ['swimming-lessons-count', 'swimmingLessons'], ['kids-activities-count', 'kidsActivities'],
+    ['aged-care-count', 'agedCare'], ['butchers-count', 'butchers'],
+    ['florists-count', 'florists'], ['accountants-count', 'accountants']
   ];
 
   function filterState(state, el) {
