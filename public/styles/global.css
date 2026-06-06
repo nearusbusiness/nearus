@@ -766,4 +766,4 @@ body {
 }
 
 /* Hide hamburger on desktop */
-.hamburger { display: none; }
+@media (min-width: 769px) { .hamburger { display: none; } }
