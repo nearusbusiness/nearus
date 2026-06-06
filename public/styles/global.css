@@ -656,3 +656,114 @@ body {
 }
 
 .load-more-btn:hover { background: var(--green-light); }
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+
+  /* NAV */
+  .nav { padding: 0 1.25rem; }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    gap: 0.75rem;
+    z-index: 99;
+  }
+
+  .nav-links.open { display: flex; }
+
+  .nav-dropdown-menu {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    min-width: 0;
+    padding: 0.5rem 0 0 0.75rem;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.25rem;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--dark);
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  /* HERO STATS */
+  .hero-stats {
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 1rem;
+  }
+
+  /* HERO */
+  .hero { padding: 3rem 1.25rem 2.5rem; }
+
+  /* DIR SEARCH FILTERS */
+  .dir-search {
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .dir-search input {
+    max-width: 100%;
+    width: 100%;
+    flex: none;
+  }
+
+  .dir-search select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* RESULTS GRID */
+  .results-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  /* FOOTER */
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .footer-inner > div:nth-child(2) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* CONTAINER */
+  .container { padding: 0 1.25rem; }
+
+  /* SECTION */
+  .section { padding: 2.5rem 0; }
+
+  /* DIR PAGE HERO */
+  .dir-page-hero { padding: 2rem 1.25rem; }
+}
+
+/* Hide hamburger on desktop */
+.hamburger { display: none; }
