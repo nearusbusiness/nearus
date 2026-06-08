@@ -5,7 +5,11 @@ export function getStaticPaths() {
   const grouped: Record<string, Record<string, any[]>> = {};
   for (const item of floristsData) {
     const state = (item.state as string).toLowerCase();
-    const suburb = (item.suburb as string).toLowerCase()
+    if (!item.suburb) continue;
+    if (!item.state) continue;
+    const rawSuburb = (item.suburb as string).trim();
+    if (rawSuburb.match(/^\d/) || rawSuburb.includes('/') || rawSuburb.length > 50) continue;
+    const suburb = rawSuburb.toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/-cbd$/, '')
       .replace(/-city$/, '')
