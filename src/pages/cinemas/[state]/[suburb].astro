@@ -1,40 +1,36 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import bakeriesData from '../../../data/bakeries.json';
-
+import cinemasData from '../../../data/cinemas.json';
 export function getStaticPaths() {
   const grouped: Record<string, Record<string, any[]>> = {};
-  
-  for (const item of bakeriesData) {
+  for (const item of cinemasData) {
     const state = (item.state as string).toLowerCase();
     const suburb = (item.suburb as string).toLowerCase()
-  .replace(/\s+/g, '-')
-  .replace(/-cbd$/, '')
-  .replace(/-city$/, '')
-  .replace(/-metro$/, '')
-  .replace(/-centre$/, '');
+      .replace(/\s+/g, '-')
+      .replace(/-cbd$/, '')
+      .replace(/-city$/, '')
+      .replace(/-metro$/, '')
+      .replace(/-centre$/, '');
     if (!grouped[state]) grouped[state] = {};
     if (!grouped[state][suburb]) grouped[state][suburb] = [];
     grouped[state][suburb].push(item);
   }
-
   const paths: any[] = [];
   for (const state in grouped) {
     for (const suburb in grouped[state]) {
       paths.push({
         params: { state, suburb },
-        props: { 
-          bakeries: grouped[state][suburb], 
-          state: state.toUpperCase(), 
-          suburb: grouped[state][suburb][0].suburb 
+        props: {
+          items: grouped[state][suburb],
+          state: state.toUpperCase(),
+          suburb: grouped[state][suburb][0].suburb
         }
       });
     }
   }
   return paths;
 }
-
-const { bakeries, state, suburb } = Astro.props;
+const { items, state, suburb } = Astro.props;
 const stateNames: Record<string, string> = {
   NSW: 'New South Wales', VIC: 'Victoria', QLD: 'Queensland',
   WA: 'Western Australia', SA: 'South Australia', TAS: 'Tasmania',
@@ -42,50 +38,43 @@ const stateNames: Record<string, string> = {
 };
 const stateName = stateNames[state] || state;
 ---
-
-<Layout 
-  title={`Bakeries Near Me in ${suburb}, ${state}`} 
-  description={`Find ${bakeries.length} bakeries and bread shops near you in ${suburb}, ${stateName}. Ratings, addresses and directions.`}
+<Layout
+  title={`Cinemas in ${suburb}, ${state} — Find ${items.length} Cinemas | NearUs`}
+  description={`Find ${items.length} cinemas in ${suburb}, ${stateName}. Ratings, addresses and directions.`}
 >
-
   <div class="dir-page-hero">
     <div class="container">
       <p style="color:#40916C; font-size:0.85rem; margin-bottom:0.5rem;">
-        <a href="/bakeries" style="color:#40916C;">All Bakeries</a> →
-        <a href={`/bakeries/${state.toLowerCase()}`} style="color:#40916C;">{stateName}</a> →
+        <a href="/cinemas" style="color:#40916C;">All Cinemas</a> →
+        <a href={`/cinemas/${state.toLowerCase()}`} style="color:#40916C;">{stateName}</a> →
         {suburb}
       </p>
-      <h1>Bakeries Near Me in {suburb}, {state}</h1>
-      <p>{bakeries.length} bakeries and bread shops in {suburb}</p>
+      <h1>Cinemas in {suburb}, {state}</h1>
+      <p>{items.length} cinemas in {suburb}</p>
     </div>
   </div>
-
   <div class="results-grid" style="padding-top: 2rem;">
-    {bakeries.map((item: any) => (
+    {items.map((item: any) => (
       <a href={item.maps_url} target="_blank" rel="noopener" class="result-card">
         <div class="result-card-name">{item.name}</div>
         <div class="result-card-loc">📍 {item.address}</div>
-        {item.rating && <div class="result-card-rating">⭐ {item.rating} ({item.total_ratings?.toLocaleString()} reviews)</div>}
+        {item.rating && <div class="result-card-rating">⭐ {item.rating} ({item.reviews?.toLocaleString()} reviews)</div>}
         <span class="result-card-state">{state}</span>
       </a>
     ))}
   </div>
-
   <div class="ad-slot" style="max-width:1100px; margin: 2rem auto;">Google AdSense</div>
-
   <div style="max-width:1100px; margin: 0 auto 3rem; padding: 0 2rem;">
     <h2 style="font-family:'Syne',sans-serif; font-size:1.2rem; margin-bottom:1rem;">
-      More Bakeries in {stateName}
+      More Cinemas in {stateName}
     </h2>
     <p>
-      <a href={`/bakeries/${state.toLowerCase()}`} style="color:var(--green);">
-        Browse all Bakeries in {stateName} →
+      <a href={`/cinemas/${state.toLowerCase()}`} style="color:var(--green);">
+        Browse all Cinemas in {stateName} →
       </a>
     </p>
   </div>
-
 </Layout>
-
 <style>
   .result-card-rating { font-size: 0.78rem; color: var(--mid); }
 </style>

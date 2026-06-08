@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import landscapersData from '../../data/landscapers.json';
+export function getStaticPaths() {
+  const states = [...new Set(landscapersData.map((g: any) => g.state))];
+  return states.map(state => ({
+    params: { state: (state as string).toLowerCase() },
+    props: { state }
+  }));
+}
+const { state } = Astro.props;
+const items = landscapersData.filter((g: any) => g.state === state);
+const stateNames: Record<string, string> = {
+  NSW: 'New South Wales', VIC: 'Victoria', QLD: 'Queensland',
+  WA: 'Western Australia', SA: 'South Australia', TAS: 'Tasmania',
+  ACT: 'Australian Capital Territory', NT: 'Northern Territory'
+};
+const stateName = stateNames[state] || state;
+---
+<Layout
+  title={`Landscapers in ${stateName} — Find ${items.length} Landscapers | NearUs`}
+  description={`Find ${items.length} landscapers in ${stateName}. Browse by suburb with ratings, addresses and directions.`}
+>
+  <div class="dir-page-hero">
+    <div class="container">
+      <p style="color:#40916C; font-size:0.85rem; margin-bottom:0.5rem;">
+        <a href="/landscapers" style="color:#40916C;">All Landscapers</a> → {stateName}
+      </p>
+      <h1>Landscapers in {stateName}</h1>
+      <p>Find {items.length} landscapers across {stateName}</p>
+    </div>
+  </div>
+  <div class="results-grid" style="padding-top: 2rem;">
+    {items.map((item: any) => (
+      <a href={item.maps_url} target="_blank" rel="noopener" class="result-card">
+        <div class="result-card-name">{item.name}</div>
+        <div class="result-card-loc">📍 {item.address}</div>
+        {item.rating && <div class="result-card-rating">⭐ {item.rating} ({item.reviews?.toLocaleString()} reviews)</div>}
+        <span class="result-card-state">{state}</span>
+      </a>
+    ))}
+  </div>
+  <div class="ad-slot" style="max-width:1100px; margin: 2rem auto;">Google AdSense</div>
+</Layout>
+<style>
+  .result-card-rating { font-size: 0.78rem; color: var(--mid); }
+</style>
