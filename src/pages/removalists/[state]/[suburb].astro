@@ -4,11 +4,11 @@ import removalistsData from '../../../data/removalists.json';
 export function getStaticPaths() {
   const grouped: Record<string, Record<string, any[]>> = {};
   for (const item of removalistsData) {
-    const state = (item.state as string).toLowerCase();
     if (!item.suburb) continue;
     if (!item.state) continue;
     const rawSuburb = (item.suburb as string).trim();
     if (rawSuburb.match(/^\d/) || rawSuburb.includes('/') || rawSuburb.length > 50) continue;
+    const state = (item.state as string).toLowerCase();
     const suburb = rawSuburb.toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/-cbd$/, '')
